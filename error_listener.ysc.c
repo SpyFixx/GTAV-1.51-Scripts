@@ -117,14 +117,14 @@ void func_2()
 	var uVar5;
 
 	iVar0 = 0;
-	while (iVar0 < UNK_0xDFB2BAED99ED0A2E(2))
+	while (iVar0 < SCRIPT::GET_NUMBER_OF_EVENTS(2))
 	{
-		iVar1 = UNK_0xB98DB26FBF676FA1(2, iVar0);
+		iVar1 = SCRIPT::GET_EVENT_AT_INDEX(2, iVar0);
 		if (func_10(iVar1))
 		{
 			func_9(&Var2);
 			func_8(2, iVar0, iVar1, &Var2);
-			Var2.f_1 = (UNK_0xF4CCC8CB6DE7F1AE() - 1);
+			Var2.f_1 = (MISC::GET_FRAME_COUNT() - 1);
 			Var2 = iVar1;
 			if (!func_7(&Var2, &uVar5))
 			{
@@ -141,9 +141,9 @@ void func_3(int iParam0)
 	int iVar0;
 
 	iVar0 = *iParam0;
-	if (((func_5() && func_4(iVar0)) && iVar0 != 244) && UNK_0x37A36997770AEFC3())
+	if (((func_5() && func_4(iVar0)) && iVar0 != 244) && NETWORK::NETWORK_CAN_BAIL())
 	{
-		UNK_0xDA303319A57C6FF5(0, 1, 0);
+		NETWORK::NETWORK_BAIL(0, 1, 0);
 	}
 }
 
@@ -154,7 +154,7 @@ bool func_4(int iParam0)
 
 bool func_5()
 {
-	return Global_1590535[UNK_0xD803B885F5E47A62() /*876*/].f_196 != 0;
+	return Global_1590535[PLAYER::PLAYER_ID() /*876*/].f_196 != 0;
 }
 
 int func_6(int iParam0)
@@ -189,7 +189,7 @@ void func_8(int iParam0, int iParam1, int iParam2, var uParam3)
 
 	if (((iParam2 == 244 || iParam2 == 245) || iParam2 == 246) || iParam2 == 247)
 	{
-		if (UNK_0x218F818E64020C17(iParam0, iParam1, &uVar0, 1))
+		if (SCRIPT::GET_EVENT_DATA(iParam0, iParam1, &uVar0, 1))
 		{
 			uParam3->f_2 = uVar0;
 		}
@@ -215,6 +215,6 @@ bool func_11()
 
 void func_12()
 {
-	UNK_0xB57F88F0123F4C38();
+	MISC::NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME();
 }
 

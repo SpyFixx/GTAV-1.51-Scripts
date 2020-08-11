@@ -48,7 +48,7 @@ void __EntryFunction__()
 	iLocal_24 = -1;
 	iLocal_25 = 21;
 	iLocal_27 = 1;
-	UNK_0xB57F88F0123F4C38();
+	MISC::NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME();
 	while (true)
 	{
 		switch (iLocal_26)
@@ -59,7 +59,7 @@ void __EntryFunction__()
 				break;
 			case 1:
 				func_1();
-				UNK_0x10FAF14A60A0DBE1();
+				SCRIPT::TERMINATE_THIS_THREAD();
 				break;
 		}
 		SYSTEM::WAIT(0);
@@ -8070,9 +8070,9 @@ void func_1()
 	func_2(iLocal_27, 27, -111778767, &(Global_291133[8000]), 1);
 }
 
-void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
+void func_2(int iParam0, int iParam1, int iParam2, int* iParam3, bool bParam4)
 {
-	func_3(0, iParam2, uParam3, bParam4);
+	func_3(0, iParam2, iParam3, bParam4);
 	if (iParam0 == 0)
 	{
 		return;
@@ -8105,7 +8105,7 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 		case 23:
 		case 24:
 		case 25:
-			func_3(1, iParam2, uParam3, bParam4);
+			func_3(1, iParam2, iParam3, bParam4);
 			if (iParam0 == 1)
 			{
 				return;
@@ -8116,7 +8116,7 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 				case 3:
 				case 4:
 				case 5:
-					func_3(2, iParam2, uParam3, bParam4);
+					func_3(2, iParam2, iParam3, bParam4);
 					if (iParam0 == 2)
 					{
 						return;
@@ -8126,7 +8126,7 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 						case 3:
 						case 4:
 						case 5:
-							func_3(iParam0, iParam2, uParam3, bParam4);
+							func_3(iParam0, iParam2, iParam3, bParam4);
 							return;
 						case 1:
 						case 2:
@@ -8178,7 +8178,7 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 				case 23:
 				case 24:
 				case 25:
-					func_3(6, iParam2, uParam3, bParam4);
+					func_3(6, iParam2, iParam3, bParam4);
 					if (iParam0 == 6)
 					{
 						return;
@@ -8192,10 +8192,10 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 						case 19:
 						case 26:
 						case 24:
-							func_3(iParam0, iParam2, uParam3, bParam4);
+							func_3(iParam0, iParam2, iParam3, bParam4);
 							if (iParam1 != 27)
 							{
-								func_3(iParam1, iParam2, uParam3, bParam4);
+								func_3(iParam1, iParam2, iParam3, bParam4);
 							}
 							return;
 						case 15:
@@ -8204,12 +8204,12 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 						case 22:
 						case 23:
 						case 25:
-							func_3(15, iParam2, uParam3, bParam4);
+							func_3(15, iParam2, iParam3, bParam4);
 							if (iParam0 == 15)
 							{
 								if (iParam1 != 27)
 								{
-									func_3(iParam1, iParam2, uParam3, bParam4);
+									func_3(iParam1, iParam2, iParam3, bParam4);
 								}
 								return;
 							}
@@ -8220,10 +8220,10 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 								case 22:
 								case 23:
 								case 25:
-									func_3(iParam0, iParam2, uParam3, bParam4);
+									func_3(iParam0, iParam2, iParam3, bParam4);
 									if (iParam1 != 27)
 									{
-										func_3(iParam1, iParam2, uParam3, bParam4);
+										func_3(iParam1, iParam2, iParam3, bParam4);
 									}
 									return;
 								default:
@@ -8238,12 +8238,12 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 						case 12:
 						case 13:
 						case 14:
-							func_3(8, iParam2, uParam3, bParam4);
+							func_3(8, iParam2, iParam3, bParam4);
 							if (iParam0 == 8)
 							{
 								if (iParam1 != 27)
 								{
-									func_3(iParam1, iParam2, uParam3, bParam4);
+									func_3(iParam1, iParam2, iParam3, bParam4);
 								}
 								return;
 							}
@@ -8255,10 +8255,10 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 								case 12:
 								case 13:
 								case 14:
-									func_3(iParam0, iParam2, uParam3, bParam4);
+									func_3(iParam0, iParam2, iParam3, bParam4);
 									if (iParam1 != 27)
 									{
-										func_3(iParam1, iParam2, uParam3, bParam4);
+										func_3(iParam1, iParam2, iParam3, bParam4);
 									}
 									return;
 								default:
@@ -8287,24 +8287,24 @@ void func_2(int iParam0, int iParam1, int iParam2, var uParam3, bool bParam4)
 	}
 }
 
-void func_3(int iParam0, int iParam1, var uParam2, bool bParam3)
+void func_3(int iParam0, int iParam1, int* iParam2, bool bParam3)
 {
 	int iVar0;
 	var uVar1;
 
 	iVar0 = func_4(iParam0);
-	uVar1 = *uParam2;
-	if (!UNK_0x3D810BD7C6FDF2DD(iVar0, iParam1, uParam2))
+	uVar1 = *iParam2;
+	if (!NETWORK::_NETWORK_ALLOCATE_TUNABLES_REGISTRATION_DATA_MAP(iVar0, iParam1, iParam2))
 	{
 		if (bParam3)
 		{
 		}
 		return;
-		*uParam2 = uVar1;
+		*iParam2 = uVar1;
 	}
 	else
 	{
-		UNK_0xB506E7AC54E6615A(iVar0, iParam1, uParam2);
+		NETWORK::NETWORK_ACCESS_TUNABLE_INT_HASH(iVar0, iParam1, iParam2);
 	}
 	if (bParam3)
 	{
@@ -8319,7 +8319,7 @@ int func_4(int iParam0)
 	{
 		StringCopy(&cVar0, "CONTENT_MODIFIER_", 64);
 		StringIntConCat(&cVar0, (iParam0 - 28), 64);
-		return UNK_0x12AB0310C2281427(&cVar0);
+		return MISC::GET_HASH_KEY(&cVar0);
 	}
 	switch (iParam0)
 	{

@@ -61,7 +61,7 @@ void __EntryFunction__()
 	fLocal_28 = 0f;
 	fLocal_32 = -0.0375f;
 	fLocal_33 = 0.17f;
-	if (UNK_0x2EBF608FFE6CA406(98))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(98))
 	{
 		func_15();
 	}
@@ -72,9 +72,9 @@ void __EntryFunction__()
 		SYSTEM::WAIT(500);
 		iVar1 = 0;
 		vVar2 = { 0f, 0f, 0f };
-		if (!UNK_0x437347B10A200C4B(UNK_0x16F2683693E537C9(), 0))
+		if (!ENTITY::IS_ENTITY_DEAD(PLAYER::PLAYER_PED_ID(), false))
 		{
-			vVar2 = { UNK_0x68F4C0EC296D3901(UNK_0x16F2683693E537C9(), true) };
+			vVar2 = { ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), true) };
 		}
 		while (iVar1 != 2)
 		{
@@ -85,9 +85,9 @@ void __EntryFunction__()
 					func_11(&(Global_31107[iVar0 /*7*/]), 2);
 					if (Global_31107[iVar0 /*7*/].f_5 != 0)
 					{
-						if (UNK_0x1727A44C562FBED2(Global_31107[iVar0 /*7*/].f_5))
+						if (SCRIPT::IS_THREAD_ACTIVE(Global_31107[iVar0 /*7*/].f_5))
 						{
-							UNK_0x4000D538E4D54254(Global_31107[iVar0 /*7*/].f_5, 1);
+							PLAYER::FORCE_CLEANUP_FOR_THREAD_WITH_THIS_ID(Global_31107[iVar0 /*7*/].f_5, 1);
 						}
 						Global_31107[iVar0 /*7*/].f_5 = 0;
 					}
@@ -112,8 +112,8 @@ void __EntryFunction__()
 
 void func_1(int iParam0)
 {
-	bool bVar0;
-	bool bVar1;
+	char* sVar0;
+	int iVar1;
 	int iVar2;
 	bool bVar3;
 
@@ -122,29 +122,29 @@ void func_1(int iParam0)
 	switch (iParam0)
 	{
 		case 0:
-			bVar0 = "re_ArmyBase";
-			bVar1 = joaat("RE_ARMYBASE");
+			sVar0 = "re_ArmyBase";
+			iVar1 = joaat("RE_ARMYBASE");
 			break;
 		case 1:
 			iVar2 = 4500;
-			bVar0 = "golf_ai_foursome";
-			bVar1 = joaat("GOLF_AI_FOURSOME");
+			sVar0 = "golf_ai_foursome";
+			iVar1 = joaat("GOLF_AI_FOURSOME");
 			bVar3 = false;
 			break;
 		case 3:
-			bVar0 = "re_Prison";
-			bVar1 = joaat("RE_PRISON");
+			sVar0 = "re_Prison";
+			iVar1 = joaat("RE_PRISON");
 			break;
 		case 2:
 			iVar2 = 4500;
-			bVar0 = "golf_ai_foursome_putting";
-			bVar1 = joaat("GOLF_AI_FOURSOME_PUTTING");
+			sVar0 = "golf_ai_foursome_putting";
+			iVar1 = joaat("GOLF_AI_FOURSOME_PUTTING");
 			bVar3 = false;
 			break;
 		case 4:
 			iVar2 = 2050;
-			bVar0 = "stripclub";
-			bVar1 = joaat("STRIPCLUB");
+			sVar0 = "stripclub";
+			iVar1 = joaat("STRIPCLUB");
 			bVar3 = false;
 			break;
 	}
@@ -152,17 +152,17 @@ void func_1(int iParam0)
 	{
 		return;
 	}
-	if (UNK_0x4880526EC51D1C27(bVar0) != 0)
+	if (HUD::GET_LENGTH_OF_LITERAL_STRING(sVar0) != 0)
 	{
-		if (UNK_0x8A22C4C08282BF26(bVar1) == 0)
+		if (SCRIPT::_GET_NUMBER_OF_REFERENCES_OF_SCRIPT_WITH_NAME_HASH(iVar1) == 0)
 		{
-			UNK_0x92DCE5C81176D2B4(bVar0);
-			while (!UNK_0x1FBF08B001C4788A(bVar0))
+			SCRIPT::REQUEST_SCRIPT(sVar0);
+			while (!SCRIPT::HAS_SCRIPT_LOADED(sVar0))
 			{
 				SYSTEM::WAIT(0);
 			}
-			Global_31107[iParam0 /*7*/].f_5 = SYSTEM::START_NEW_SCRIPT(bVar0, iVar2);
-			UNK_0x5E8C29AE121DF1C7(bVar0);
+			Global_31107[iParam0 /*7*/].f_5 = SYSTEM::START_NEW_SCRIPT(sVar0, iVar2);
+			SCRIPT::SET_SCRIPT_AS_NO_LONGER_NEEDED(sVar0);
 			if (Global_31107[iParam0 /*7*/].f_5 != 0)
 			{
 				func_2(&(Global_31107[iParam0 /*7*/]), 2);
@@ -203,9 +203,9 @@ bool func_5(var uParam0, vector3 vParam1)
 	{
 		return false;
 	}
-	if (!UNK_0xEB6A8945D1AC98A1(UNK_0x16F2683693E537C9()))
+	if (!PED::IS_PED_INJURED(PLAYER::PLAYER_PED_ID()))
 	{
-		if (UNK_0x3D1053F9EB43B7AD(UNK_0x16F2683693E537C9(), -2080.115f, 3292.193f, -11.667f, -2112.049f, 3224.331f, 11.667f, 115f, 1, false, 0))
+		if (ENTITY::IS_ENTITY_IN_ANGLED_AREA(PLAYER::PLAYER_PED_ID(), -2080.115f, 3292.193f, -11.667f, -2112.049f, 3224.331f, 11.667f, 115f, true, false, 0))
 		{
 			return false;
 		}
@@ -374,7 +374,7 @@ void func_11(var uParam0, int iParam1)
 bool func_12(int iParam0, vector3 vParam1)
 {
 	vParam1.f_2 = 0f;
-	if (!UNK_0x1727A44C562FBED2(Global_31107[iParam0 /*7*/].f_5))
+	if (!SCRIPT::IS_THREAD_ACTIVE(Global_31107[iParam0 /*7*/].f_5))
 	{
 		return true;
 	}
@@ -388,7 +388,7 @@ bool func_12(int iParam0, vector3 vParam1)
 		{
 			if (iParam0 == 1 || iParam0 == 2)
 			{
-				if (UNK_0x8A22C4C08282BF26(joaat("GOLF")) == 0)
+				if (SCRIPT::_GET_NUMBER_OF_REFERENCES_OF_SCRIPT_WITH_NAME_HASH(joaat("GOLF")) == 0)
 				{
 					return true;
 				}
@@ -445,6 +445,6 @@ void func_14()
 
 void func_15()
 {
-	UNK_0x10FAF14A60A0DBE1();
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 

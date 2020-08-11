@@ -2,7 +2,7 @@ void __EntryFunction__()
 {
 	func_1();
 	Global_2460596 = 1;
-	UNK_0x10FAF14A60A0DBE1();
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 
 void func_1()

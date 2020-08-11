@@ -47,21 +47,21 @@ void __EntryFunction__()
 	fLocal_21 = 0f;
 	fLocal_25 = -0.0375f;
 	fLocal_26 = 0.17f;
-	if (UNK_0x2EBF608FFE6CA406(67))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(67))
 	{
-		if (UNK_0x3E653638C7A26115() != 2)
+		if (PLAYER::GET_CAUSE_OF_MOST_RECENT_FORCE_CLEANUP() != 2)
 		{
 			func_4(19);
 		}
 		func_3();
 	}
 	func_2(19);
-	UNK_0x9CBC55A05A07FC47(1);
-	while (!UNK_0xE3934829A331AF92("CONSTRUCTION_SITE_STREAM", "FBI_HEIST_SOUNDSET"))
+	AUDIO::REGISTER_SCRIPT_WITH_AUDIO(1);
+	while (!AUDIO::LOAD_STREAM("CONSTRUCTION_SITE_STREAM", "FBI_HEIST_SOUNDSET"))
 	{
 		SYSTEM::WAIT(0);
 	}
-	UNK_0xDED18C4572CC8FC6(-147f, -1005f, 28f);
+	AUDIO::PLAY_STREAM_FROM_POSITION(-147f, -1005f, 28f);
 	while (func_1(70))
 	{
 		SYSTEM::WAIT(0);
@@ -82,51 +82,51 @@ bool func_1(int iParam0)
 int func_2(int iParam0)
 {
 	int iVar0;
-	bool bVar1;
+	int iVar1;
 
 	if (iParam0 <= 31)
 	{
 		iVar0 = 9;
-		bVar1 = iParam0;
+		iVar1 = iParam0;
 	}
 	else
 	{
 		iVar0 = 10;
-		bVar1 = (iParam0 - 32);
+		iVar1 = (iParam0 - 32);
 	}
-	if (UNK_0xEAE0D21A50E6C7F4(Global_111638.f_9080.f_99.f_219[iVar0], bVar1))
+	if (MISC::IS_BIT_SET(Global_111638.f_9080.f_99.f_219[iVar0], iVar1))
 	{
 		return 0;
 	}
-	UNK_0x5D96D8530B3D0904(&(Global_111638.f_9080.f_99.f_219[iVar0]), bVar1);
+	MISC::SET_BIT(&(Global_111638.f_9080.f_99.f_219[iVar0]), iVar1);
 	return 1;
 }
 
 void func_3()
 {
-	UNK_0xE96F19797E59AB06();
-	UNK_0x5372553242EA2414();
-	UNK_0x10FAF14A60A0DBE1();
+	AUDIO::STOP_STREAM();
+	AUDIO::UNREGISTER_SCRIPT_WITH_AUDIO();
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 
 int func_4(int iParam0)
 {
 	int iVar0;
-	bool bVar1;
+	int iVar1;
 
 	if (iParam0 <= 31)
 	{
 		iVar0 = 9;
-		bVar1 = iParam0;
+		iVar1 = iParam0;
 	}
 	else
 	{
 		iVar0 = 10;
-		bVar1 = (iParam0 - 32);
+		iVar1 = (iParam0 - 32);
 	}
-	if (UNK_0xEAE0D21A50E6C7F4(Global_111638.f_9080.f_99.f_219[iVar0], bVar1))
+	if (MISC::IS_BIT_SET(Global_111638.f_9080.f_99.f_219[iVar0], iVar1))
 	{
-		UNK_0x0674E58A79778E99(&(Global_111638.f_9080.f_99.f_219[iVar0]), bVar1);
+		MISC::CLEAR_BIT(&(Global_111638.f_9080.f_99.f_219[iVar0]), iVar1);
 		return 1;
 	}
 	return 0;

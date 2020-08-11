@@ -36,9 +36,9 @@ void __EntryFunction__()
 	iLocal_11 = 12;
 	fLocal_14 = 0.001f;
 	iLocal_17 = -1;
-	if (UNK_0x2EBF608FFE6CA406(34))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(34))
 	{
-		UNK_0x10FAF14A60A0DBE1();
+		SCRIPT::TERMINATE_THIS_THREAD();
 	}
 }
 

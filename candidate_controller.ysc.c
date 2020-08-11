@@ -43,7 +43,7 @@ void __EntryFunction__()
 	iLocal_11 = 12;
 	fLocal_14 = 0.001f;
 	iLocal_17 = -1;
-	if (UNK_0x2EBF608FFE6CA406(2))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(2))
 	{
 		func_18();
 	}
@@ -57,7 +57,7 @@ void __EntryFunction__()
 			{
 				if (Global_41393 != -1)
 				{
-					if (!UNK_0x1727A44C562FBED2(Global_41394))
+					if (!SCRIPT::IS_THREAD_ACTIVE(Global_41394))
 					{
 						func_17(&Global_41393);
 					}
@@ -146,7 +146,7 @@ void __EntryFunction__()
 			Global_37198 = 1;
 			if (Global_41431 != 5 && Global_41431 != 15)
 			{
-				UNK_0x4C7B0415764B64BA(8);
+				PLAYER::FORCE_CLEANUP(8);
 			}
 			if (Global_41431 == 15 || Global_41431 == 6)
 			{
@@ -160,20 +160,20 @@ void __EntryFunction__()
 			{
 				if (!bLocal_20)
 				{
-					UNK_0x428D9DCBB4E4492F(1);
+					NETWORK::_NETWORK_BLOCK_INVITES_2(true);
 					bLocal_20 = true;
 				}
 			}
 			else if (bLocal_20)
 			{
-				UNK_0x428D9DCBB4E4492F(0);
+				NETWORK::_NETWORK_BLOCK_INVITES_2(false);
 				bLocal_20 = false;
 			}
 		}
 		iVar1 = Global_41431;
 		iVar0 = Global_41392;
 		Global_110064 = func_1();
-		Global_31043 = UNK_0xDDD4A799D5B1FDA5();
+		Global_31043 = CLOCK::GET_CLOCK_DAY_OF_WEEK();
 		SYSTEM::WAIT(0);
 	}
 	Global_41397 = 0;
@@ -183,12 +183,12 @@ var func_1()
 {
 	var uVar0;
 
-	func_11(&uVar0, UNK_0x4460E481B9E33ADA());
-	func_10(&uVar0, UNK_0x8D199E381D262EEF());
-	func_9(&uVar0, UNK_0xD8A54335F18763BA());
-	func_4(&uVar0, UNK_0x972A296334C9D57B());
-	func_3(&uVar0, UNK_0x118229AD063C3C1D());
-	func_2(&uVar0, UNK_0x1A61A218F5C5EB02());
+	func_11(&uVar0, CLOCK::GET_CLOCK_SECONDS());
+	func_10(&uVar0, CLOCK::GET_CLOCK_MINUTES());
+	func_9(&uVar0, CLOCK::GET_CLOCK_HOURS());
+	func_4(&uVar0, CLOCK::GET_CLOCK_DAY_OF_MONTH());
+	func_3(&uVar0, CLOCK::GET_CLOCK_MONTH());
+	func_2(&uVar0, CLOCK::GET_CLOCK_YEAR());
 	return uVar0;
 }
 
@@ -278,9 +278,9 @@ int func_5(int iParam0, int iParam1)
 	return 30;
 }
 
-var func_6(bool bParam0)
+var func_6(int iParam0)
 {
-	return (SYSTEM::SHIFT_RIGHT(bParam0, 26) & 31 * func_7(UNK_0xEAE0D21A50E6C7F4(bParam0, 31), -1, 1)) + 2011;
+	return (SYSTEM::SHIFT_RIGHT(iParam0, 26) & 31 * func_7(MISC::IS_BIT_SET(iParam0, 31), -1, 1)) + 2011;
 }
 
 int func_7(bool bParam0, int iParam1, int iParam2)
@@ -352,7 +352,7 @@ void func_13(bool bParam0)
 {
 	if (!bParam0)
 	{
-		Global_110280 = UNK_0x1C0640BA9A7327B3() + 250;
+		Global_110280 = MISC::GET_GAME_TIMER() + 250;
 	}
 	Global_110277 = bParam0;
 }
@@ -554,6 +554,6 @@ void func_18()
 {
 	func_17(&Global_41393);
 	Global_41397 = 0;
-	UNK_0x10FAF14A60A0DBE1();
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 

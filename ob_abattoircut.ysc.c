@@ -2,35 +2,35 @@
 	var uLocal_0 = 0;
 	var uLocal_1 = 0;
 	int iLocal_2 = 0;
-	bool bScriptParam_0 = false;
+	int iScriptParam_0 = 0;
 #endregion
 
 void __EntryFunction__()
 {
-	if (UNK_0x2EBF608FFE6CA406(2))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(2))
 	{
 		func_1();
 	}
-	if (UNK_0xC844350D5D58C99A(bScriptParam_0))
+	if (ENTITY::DOES_ENTITY_EXIST(iScriptParam_0))
 	{
-		UNK_0x1E9649458B15960F(bScriptParam_0, true);
+		ENTITY::FREEZE_ENTITY_POSITION(iScriptParam_0, true);
 	}
 	while (true)
 	{
 		SYSTEM::WAIT(0);
-		if (UNK_0xC844350D5D58C99A(bScriptParam_0))
+		if (ENTITY::DOES_ENTITY_EXIST(iScriptParam_0))
 		{
-			if (UNK_0x63D2C15453688621(bScriptParam_0) && UNK_0x8A22C4C08282BF26(joaat("MICHAEL2")) > 0)
+			if (BRAIN::IS_OBJECT_WITHIN_BRAIN_ACTIVATION_RANGE(iScriptParam_0) && SCRIPT::_GET_NUMBER_OF_REFERENCES_OF_SCRIPT_WITH_NAME_HASH(joaat("MICHAEL2")) > 0)
 			{
 				switch (iLocal_2)
 				{
 					case 0:
-						if (UNK_0x1A5AE8A9B1D42A10(bScriptParam_0))
+						if (ENTITY::DOES_ENTITY_HAVE_DRAWABLE(iScriptParam_0))
 						{
-							UNK_0x3F423BF5B8125A50("MISSMIC2");
-							if (UNK_0xB4AE0788C1587752("MISSMIC2"))
+							STREAMING::REQUEST_ANIM_DICT("MISSMIC2");
+							if (STREAMING::HAS_ANIM_DICT_LOADED("MISSMIC2"))
 							{
-								UNK_0xD65E6E13E145467B(bScriptParam_0, "beefsplitter_loop", "MISSMIC2", 1f, true, false, 0, false, 0);
+								ENTITY::PLAY_ENTITY_ANIM(iScriptParam_0, "beefsplitter_loop", "MISSMIC2", 1f, true, false, false, 0f, 0);
 								iLocal_2 = 1;
 							}
 						}
@@ -56,18 +56,18 @@ void __EntryFunction__()
 void func_1()
 {
 	func_2("ob_abattoir Terminated >>>>>>>>>>>>>>>>>\n");
-	UNK_0x8D17794CE3273D70("MISSMIC2");
-	UNK_0x10FAF14A60A0DBE1();
+	STREAMING::REMOVE_ANIM_DICT("MISSMIC2");
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 
-void func_2(bool bParam0)
+void func_2(char* sParam0)
 {
-	func_3(bParam0);
+	func_3(sParam0);
 }
 
-void func_3(bool bParam0)
+void func_3(char* sParam0)
 {
-	if (UNK_0x7F8A39872A07D2CE(bParam0, bParam0))
+	if (MISC::ARE_STRINGS_EQUAL(sParam0, sParam0))
 	{
 	}
 }

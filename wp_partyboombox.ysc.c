@@ -27,25 +27,25 @@
 
 void __EntryFunction__()
 {
-	if (UNK_0x8A22C4C08282BF26(joaat("WP_PARTYBOOMBOX")) > 1)
+	if (SCRIPT::_GET_NUMBER_OF_REFERENCES_OF_SCRIPT_WITH_NAME_HASH(joaat("WP_PARTYBOOMBOX")) > 1)
 	{
-		UNK_0x10FAF14A60A0DBE1();
+		SCRIPT::TERMINATE_THIS_THREAD();
 	}
-	if (UNK_0x2EBF608FFE6CA406(18))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(18))
 	{
 		func_1();
 	}
 	while (true)
 	{
 		SYSTEM::WAIT(0);
-		if (!UNK_0x338D6FF72D84D90F())
+		if (!BRAIN::IS_WORLD_POINT_WITHIN_BRAIN_ACTIVATION_RANGE())
 		{
 			iLocal_0 = 3;
 		}
 		switch (iLocal_0)
 		{
 			case 0:
-				if (UNK_0xD8A54335F18763BA() >= 22 || UNK_0xD8A54335F18763BA() <= 4)
+				if (CLOCK::GET_CLOCK_HOURS() >= 22 || CLOCK::GET_CLOCK_HOURS() <= 4)
 				{
 					iLocal_0 = 1;
 				}
@@ -55,16 +55,16 @@ void __EntryFunction__()
 				}
 				break;
 			case 1:
-				if (!UNK_0xBCFF5481C5F58C19("ID2_21_G_Night"))
+				if (!STREAMING::IS_IPL_ACTIVE("ID2_21_G_Night"))
 				{
-					UNK_0x2404539258C5376B("ID2_21_G_Night");
+					STREAMING::REQUEST_IPL("ID2_21_G_Night");
 					iLocal_0 = 2;
 				}
 				break;
 			case 2:
 				break;
 			case 3:
-				if (!UNK_0xEB880D98B5988D0C() && !UNK_0x991B1F0980C62628())
+				if (!STREAMING::IS_NEW_LOAD_SCENE_ACTIVE() && !STREAMING::IS_PLAYER_SWITCH_IN_PROGRESS())
 				{
 					func_1();
 				}
@@ -75,10 +75,10 @@ void __EntryFunction__()
 
 void func_1()
 {
-	if (UNK_0xBCFF5481C5F58C19("ID2_21_G_Night"))
+	if (STREAMING::IS_IPL_ACTIVE("ID2_21_G_Night"))
 	{
-		UNK_0x81CF20E10AAD5FD5("ID2_21_G_Night");
+		STREAMING::REMOVE_IPL("ID2_21_G_Night");
 	}
-	UNK_0x10FAF14A60A0DBE1();
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 

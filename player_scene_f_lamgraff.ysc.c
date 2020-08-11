@@ -234,10 +234,10 @@
 	var uLocal_236 = 0;
 	int iLocal_237 = 0;
 	bool bLocal_238 = false;
-	bool bLocal_239 = false;
-	bool bLocal_240 = false;
+	int iLocal_239 = 0;
+	int iLocal_240 = 0;
 	vector3 vLocal_241 = { 0f, 0f, 0f };
-	bool bLocal_244 = false;
+	float fLocal_244 = 0f;
 	var uLocal_245 = 0;
 	var uLocal_246 = 0;
 	var uLocal_247 = 0;
@@ -321,7 +321,7 @@ void __EntryFunction__()
 	fLocal_295 = 0f;
 	fLocal_296 = 1f;
 	fLocal_297 = 1f;
-	if (UNK_0x2EBF608FFE6CA406(3))
+	if (PLAYER::HAS_FORCE_CLEANUP_OCCURRED(3))
 	{
 		func_54();
 	}
@@ -369,19 +369,19 @@ bool func_2()
 {
 	float fVar0;
 
-	if (!UNK_0xEB6A8945D1AC98A1(Global_98465))
+	if (!PED::IS_PED_INJURED(Global_98465))
 	{
-		if (UNK_0xC844350D5D58C99A(bLocal_239))
+		if (ENTITY::DOES_ENTITY_EXIST(iLocal_239))
 		{
-			if (UNK_0xB4ECF989E2C1DAC8(Global_98465, &uLocal_245, &cLocal_277, 3))
+			if (ENTITY::IS_ENTITY_PLAYING_ANIM(Global_98465, &uLocal_245, &cLocal_277, 3))
 			{
-				if (UNK_0x4E861BC5B1EDA7BD(Global_98465))
+				if (FIRE::IS_ENTITY_ON_FIRE(Global_98465))
 				{
-					UNK_0x5B8BE59CB25E8968(Global_98465, 0, 0);
-					UNK_0xA3BF0AA5A2608191(Global_98465);
+					TASK::STOP_ANIM_PLAYBACK(Global_98465, 0, false);
+					TASK::CLEAR_PED_TASKS(Global_98465);
 					return false;
 				}
-				fVar0 = UNK_0xA45992A6CE82FB43(iLocal_293);
+				fVar0 = PED::GET_SYNCHRONIZED_SCENE_PHASE(iLocal_293);
 				if (!bLocal_238)
 				{
 					if (func_3(&uLocal_72, "PRSAUD", "FRAS_IG_7x", 3, 0, 0, 0))
@@ -393,7 +393,7 @@ bool func_2()
 				{
 					if (iLocal_294 != 0)
 					{
-						UNK_0xF7E25143642732EA(iLocal_294, 0);
+						GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 						iLocal_294 = 0;
 					}
 				}
@@ -401,15 +401,15 @@ bool func_2()
 				{
 					if (iLocal_294 == 0)
 					{
-						iLocal_294 = UNK_0xC1879030EB463216("scr_lamgraff_paint_spray", bLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0, 0, 0);
-						UNK_0x02D205CBD211ED4F(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
+						iLocal_294 = GRAPHICS::START_PARTICLE_FX_LOOPED_ON_ENTITY("scr_lamgraff_paint_spray", iLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, false, false, false);
+						GRAPHICS::SET_PARTICLE_FX_LOOPED_COLOUR(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
 					}
 				}
 				else if (fVar0 < 0.5745f)
 				{
 					if (iLocal_294 != 0)
 					{
-						UNK_0xF7E25143642732EA(iLocal_294, 0);
+						GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 						iLocal_294 = 0;
 					}
 				}
@@ -417,19 +417,19 @@ bool func_2()
 				{
 					if (iLocal_294 == 0)
 					{
-						iLocal_294 = UNK_0xC1879030EB463216("scr_lamgraff_paint_spray", bLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0, 0, 0);
-						UNK_0x02D205CBD211ED4F(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
+						iLocal_294 = GRAPHICS::START_PARTICLE_FX_LOOPED_ON_ENTITY("scr_lamgraff_paint_spray", iLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, false, false, false);
+						GRAPHICS::SET_PARTICLE_FX_LOOPED_COLOUR(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
 					}
 				}
 				else if (iLocal_294 != 0)
 				{
-					UNK_0xF7E25143642732EA(iLocal_294, 0);
+					GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 					iLocal_294 = 0;
 				}
 			}
 			else if (iLocal_294 != 0)
 			{
-				UNK_0xF7E25143642732EA(iLocal_294, 0);
+				GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 				iLocal_294 = 0;
 			}
 		}
@@ -473,7 +473,7 @@ int func_4(char* sParam0, int iParam1, bool bParam2)
 			{
 				if (Global_20812 == 0)
 				{
-					UNK_0x5CEB4DB888A62073(false);
+					AUDIO::STOP_SCRIPTED_CONVERSATION(false);
 					Global_19486.f_1 = 3;
 					Global_20805 = 0;
 					Global_20806 = 1;
@@ -495,7 +495,7 @@ int func_4(char* sParam0, int iParam1, bool bParam2)
 				return 0;
 			}
 		}
-		if (UNK_0x25037C66EB32B076())
+		if (AUDIO::IS_SCRIPTED_CONVERSATION_ONGOING())
 		{
 			return 0;
 		}
@@ -522,9 +522,9 @@ int func_4(char* sParam0, int iParam1, bool bParam2)
 		Global_20801 = Global_20802;
 		if (Global_20811)
 		{
-			UNK_0x0674E58A79778E99(&Global_7356, 20);
-			UNK_0x0674E58A79778E99(&Global_7357, 17);
-			UNK_0x0674E58A79778E99(&Global_7358, false);
+			MISC::CLEAR_BIT(&Global_7356, 20);
+			MISC::CLEAR_BIT(&Global_7357, 17);
+			MISC::CLEAR_BIT(&Global_7358, 0);
 			if (bParam2)
 			{
 				func_14();
@@ -547,9 +547,9 @@ int func_4(char* sParam0, int iParam1, bool bParam2)
 			{
 				return 0;
 			}
-			if (UNK_0xE1DBBD6CE209517C(UNK_0xD803B885F5E47A62()))
+			if (PLAYER::IS_PLAYER_PLAYING(PLAYER::PLAYER_ID()))
 			{
-				if (UNK_0x65851B2C8786EE74(UNK_0x16F2683693E537C9()))
+				if (PED::IS_PED_IN_MELEE_COMBAT(PLAYER::PLAYER_PED_ID()))
 				{
 					return 0;
 				}
@@ -557,37 +557,37 @@ int func_4(char* sParam0, int iParam1, bool bParam2)
 				{
 					return 0;
 				}
-				if (UNK_0xCE8BF704469FA7EF(UNK_0x16F2683693E537C9()))
+				if (TASK::IS_PED_SPRINTING(PLAYER::PLAYER_PED_ID()))
 				{
 					return 0;
 				}
-				if (UNK_0x869EFD0BC0868856(UNK_0x16F2683693E537C9()))
+				if (PED::IS_PED_RAGDOLL(PLAYER::PLAYER_PED_ID()))
 				{
 					return 0;
 				}
-				if (UNK_0x6438374572DE9B51(UNK_0x16F2683693E537C9()))
+				if (PED::IS_PED_IN_PARACHUTE_FREE_FALL(PLAYER::PLAYER_PED_ID()))
 				{
 					return 0;
 				}
-				if (UNK_0x989FD1982F631EA3(UNK_0x16F2683693E537C9(), joaat("GADGET_PARACHUTE")))
+				if (WEAPON::GET_IS_PED_GADGET_EQUIPPED(PLAYER::PLAYER_PED_ID(), joaat("GADGET_PARACHUTE")))
 				{
 					return 0;
 				}
 				if (!Global_76622)
 				{
-					if (UNK_0x70EED0761B82965E(UNK_0x16F2683693E537C9()))
+					if (ENTITY::IS_ENTITY_IN_WATER(PLAYER::PLAYER_PED_ID()))
 					{
 						return 0;
 					}
-					if (UNK_0x2EEF020781C7E77A(UNK_0xD803B885F5E47A62()))
+					if (PLAYER::IS_PLAYER_CLIMBING(PLAYER::PLAYER_ID()))
 					{
 						return 0;
 					}
-					if (UNK_0xFB275CE013F3A38C(UNK_0x16F2683693E537C9()))
+					if (PED::IS_PED_PLANTING_BOMB(PLAYER::PLAYER_PED_ID()))
 					{
 						return 0;
 					}
-					if (UNK_0x3114787DB5A129EF(UNK_0xD803B885F5E47A62(), 0))
+					if (PLAYER::IS_SPECIAL_ABILITY_ACTIVE(PLAYER::PLAYER_ID(), 0))
 					{
 						return 0;
 					}
@@ -612,7 +612,7 @@ int func_4(char* sParam0, int iParam1, bool bParam2)
 					default:
 						break;
 				}
-				if (UNK_0xEAE0D21A50E6C7F4(Global_7356, 9))
+				if (MISC::IS_BIT_SET(Global_7356, 9))
 				{
 					return 0;
 				}
@@ -669,19 +669,19 @@ bool func_6()
 	{
 		return false;
 	}
-	if (UNK_0xD803B885F5E47A62() == func_9())
+	if (PLAYER::PLAYER_ID() == func_9())
 	{
 		return false;
 	}
-	if (func_7(UNK_0xD803B885F5E47A62()))
+	if (func_7(PLAYER::PLAYER_ID()))
 	{
 		return false;
 	}
-	if (UNK_0xEAE0D21A50E6C7F4(Global_1628237[UNK_0xD803B885F5E47A62() /*615*/].f_1, 7))
+	if (MISC::IS_BIT_SET(Global_1628237[PLAYER::PLAYER_ID() /*615*/].f_1, 7))
 	{
 		return false;
 	}
-	if (UNK_0xA14BB9332558B949())
+	if (NETWORK::NETWORK_IS_ACTIVITY_SESSION())
 	{
 		return false;
 	}
@@ -693,9 +693,9 @@ bool func_7(int iParam0)
 	return func_8(iParam0, 20);
 }
 
-bool func_8(int iParam0, bool bParam1)
+bool func_8(int iParam0, int iParam1)
 {
-	return UNK_0xEAE0D21A50E6C7F4(Global_1628237[iParam0 /*615*/].f_11.f_4, bParam1);
+	return MISC::IS_BIT_SET(Global_1628237[iParam0 /*615*/].f_11.f_4, iParam1);
 }
 
 int func_9()
@@ -713,7 +713,7 @@ void func_10()
 		StringCopy(&(Global_19673[iVar0 /*6*/]), "", 24);
 		iVar0++;
 	}
-	UNK_0x5CEB4DB888A62073(false);
+	AUDIO::STOP_SCRIPTED_CONVERSATION(false);
 	Global_20805 = 1;
 }
 
@@ -737,7 +737,7 @@ void func_11()
 	Global_21821 = 0;
 	Global_20854 = 0;
 	Global_20855 = 0;
-	UNK_0x0674E58A79778E99(&Global_7357, 16);
+	MISC::CLEAR_BIT(&Global_7357, 16);
 }
 
 bool func_12()
@@ -757,15 +757,15 @@ bool func_13()
 	if (Global_76622)
 	{
 		iVar0 = 0;
-		UNK_0xCAE036C45E7FC720(UNK_0x16F2683693E537C9(), &iVar1, 1);
-		if (UNK_0xE1DBBD6CE209517C(UNK_0xD803B885F5E47A62()))
+		WEAPON::GET_CURRENT_PED_WEAPON(PLAYER::PLAYER_PED_ID(), &iVar1, true);
+		if (PLAYER::IS_PLAYER_PLAYING(PLAYER::PLAYER_ID()))
 		{
 			if ((iVar1 == joaat("WEAPON_SNIPERRIFLE") || iVar1 == joaat("WEAPON_HEAVYSNIPER")) || iVar1 == joaat("WEAPON_REMOTESNIPER"))
 			{
 				iVar0 = 1;
 			}
 		}
-		if (UNK_0x5ED715849883FAFF() && iVar0 == 1)
+		if (CAM::IS_AIM_CAM_ACTIVE() && iVar0 == 1)
 		{
 			return true;
 		}
@@ -774,9 +774,9 @@ bool func_13()
 			return false;
 		}
 	}
-	if (UNK_0xE1DBBD6CE209517C(UNK_0xD803B885F5E47A62()))
+	if (PLAYER::IS_PLAYER_PLAYING(PLAYER::PLAYER_ID()))
 	{
-		if (UNK_0x24129324CD7C13D0(UNK_0x16F2683693E537C9(), 78, 1))
+		if (PED::GET_PED_CONFIG_FLAG(PLAYER::PLAYER_PED_ID(), 78, true))
 		{
 			return true;
 		}
@@ -792,17 +792,17 @@ void func_14()
 {
 	if (func_21(14))
 	{
-		if (!UNK_0x437347B10A200C4B(UNK_0x16F2683693E537C9(), 0))
+		if (!ENTITY::IS_ENTITY_DEAD(PLAYER::PLAYER_PED_ID(), false))
 		{
-			if (UNK_0x134B62B726CEC8E6(UNK_0x16F2683693E537C9()) == Global_111638.f_28045[0 /*29*/])
+			if (ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == Global_111638.f_28045[0 /*29*/])
 			{
 				Global_19486 = 0;
 			}
-			else if (UNK_0x134B62B726CEC8E6(UNK_0x16F2683693E537C9()) == Global_111638.f_28045[1 /*29*/])
+			else if (ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == Global_111638.f_28045[1 /*29*/])
 			{
 				Global_19486 = 1;
 			}
-			else if (UNK_0x134B62B726CEC8E6(UNK_0x16F2683693E537C9()) == Global_111638.f_28045[2 /*29*/])
+			else if (ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()) == Global_111638.f_28045[2 /*29*/])
 			{
 				Global_19486 = 2;
 			}
@@ -840,11 +840,11 @@ void func_16()
 {
 	int iVar0;
 
-	if (UNK_0xC844350D5D58C99A(UNK_0x16F2683693E537C9()))
+	if (ENTITY::DOES_ENTITY_EXIST(PLAYER::PLAYER_PED_ID()))
 	{
-		if (func_19(Global_111638.f_2358.f_539.f_4321) != UNK_0x134B62B726CEC8E6(UNK_0x16F2683693E537C9()))
+		if (func_19(Global_111638.f_2358.f_539.f_4321) != ENTITY::GET_ENTITY_MODEL(PLAYER::PLAYER_PED_ID()))
 		{
-			iVar0 = func_18(UNK_0x16F2683693E537C9());
+			iVar0 = func_18(PLAYER::PLAYER_PED_ID());
 			if (func_17(iVar0) && (!func_21(14) || Global_110589))
 			{
 				if (Global_111638.f_2358.f_539.f_4321 != iVar0 && func_17(Global_111638.f_2358.f_539.f_4321))
@@ -873,14 +873,14 @@ bool func_17(int iParam0)
 	return iParam0 < 3;
 }
 
-int func_18(bool bParam0)
+int func_18(int iParam0)
 {
 	int iVar0;
 	int iVar1;
 
-	if (UNK_0xC844350D5D58C99A(bParam0))
+	if (ENTITY::DOES_ENTITY_EXIST(iParam0))
 	{
-		iVar1 = UNK_0x134B62B726CEC8E6(bParam0);
+		iVar1 = ENTITY::GET_ENTITY_MODEL(iParam0);
 		iVar0 = 0;
 		while (iVar0 <= 2)
 		{
@@ -933,9 +933,9 @@ void func_22()
 	Global_20094.f_162 = { 0f, 0f, 0f };
 }
 
-bool func_23(bool bParam0, int iParam1)
+bool func_23(int iParam0, int iParam1)
 {
-	switch (bParam0)
+	switch (iParam0)
 	{
 		case 5:
 			if (iParam1 > -1)
@@ -944,23 +944,23 @@ bool func_23(bool bParam0, int iParam1)
 			}
 			break;
 	}
-	return UNK_0xEAE0D21A50E6C7F4(Global_1377170.f_1048, bParam0);
+	return MISC::IS_BIT_SET(Global_1377170.f_1048, iParam0);
 }
 
 void func_24()
 {
-	UNK_0x8BD0DC8EEFDC56D8();
+	AUDIO::RESTART_SCRIPTED_CONVERSATION();
 	Global_21816 = 0;
-	if ((UNK_0x1EE04CEA36EF313B() || Global_19486.f_1 == 9) || Global_19485 == 1)
+	if ((AUDIO::IS_MOBILE_PHONE_CALL_ONGOING() || Global_19486.f_1 == 9) || Global_19485 == 1)
 	{
-		UNK_0x5CEB4DB888A62073(false);
+		AUDIO::STOP_SCRIPTED_CONVERSATION(false);
 		Global_20805 = 6;
 		Global_19486.f_1 = 3;
 		return;
 	}
-	if (UNK_0x25037C66EB32B076())
+	if (AUDIO::IS_SCRIPTED_CONVERSATION_ONGOING())
 	{
-		UNK_0x5CEB4DB888A62073(true);
+		AUDIO::STOP_SCRIPTED_CONVERSATION(true);
 		Global_20805 = 6;
 		return;
 	}
@@ -998,24 +998,24 @@ bool func_26()
 {
 	float fVar0;
 
-	if (!UNK_0xEB6A8945D1AC98A1(Global_98465))
+	if (!PED::IS_PED_INJURED(Global_98465))
 	{
-		if (UNK_0xC844350D5D58C99A(bLocal_239))
+		if (ENTITY::DOES_ENTITY_EXIST(iLocal_239))
 		{
-			if (UNK_0xB4ECF989E2C1DAC8(Global_98465, &uLocal_245, &cLocal_261, 3))
+			if (ENTITY::IS_ENTITY_PLAYING_ANIM(Global_98465, &uLocal_245, &cLocal_261, 3))
 			{
-				if (UNK_0x4E861BC5B1EDA7BD(Global_98465))
+				if (FIRE::IS_ENTITY_ON_FIRE(Global_98465))
 				{
-					UNK_0x5B8BE59CB25E8968(Global_98465, 0, 0);
-					UNK_0xA3BF0AA5A2608191(Global_98465);
+					TASK::STOP_ANIM_PLAYBACK(Global_98465, 0, false);
+					TASK::CLEAR_PED_TASKS(Global_98465);
 					return false;
 				}
-				fVar0 = UNK_0xA45992A6CE82FB43(Global_96074);
+				fVar0 = PED::GET_SYNCHRONIZED_SCENE_PHASE(Global_96074);
 				if (fVar0 < 0.3812f)
 				{
 					if (iLocal_294 != 0)
 					{
-						UNK_0xF7E25143642732EA(iLocal_294, 0);
+						GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 						iLocal_294 = 0;
 					}
 				}
@@ -1023,15 +1023,15 @@ bool func_26()
 				{
 					if (iLocal_294 == 0)
 					{
-						iLocal_294 = UNK_0xC1879030EB463216("scr_lamgraff_paint_spray", bLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0, 0, 0);
-						UNK_0x02D205CBD211ED4F(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
+						iLocal_294 = GRAPHICS::START_PARTICLE_FX_LOOPED_ON_ENTITY("scr_lamgraff_paint_spray", iLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, false, false, false);
+						GRAPHICS::SET_PARTICLE_FX_LOOPED_COLOUR(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
 					}
 				}
 				else if (fVar0 < 0.5745f)
 				{
 					if (iLocal_294 != 0)
 					{
-						UNK_0xF7E25143642732EA(iLocal_294, 0);
+						GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 						iLocal_294 = 0;
 					}
 				}
@@ -1039,27 +1039,27 @@ bool func_26()
 				{
 					if (iLocal_294 == 0)
 					{
-						iLocal_294 = UNK_0xC1879030EB463216("scr_lamgraff_paint_spray", bLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0, 0, 0);
-						UNK_0x02D205CBD211ED4F(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
+						iLocal_294 = GRAPHICS::START_PARTICLE_FX_LOOPED_ON_ENTITY("scr_lamgraff_paint_spray", iLocal_239, 0f, 0f, 0f, 0f, 0f, 0f, 1f, false, false, false);
+						GRAPHICS::SET_PARTICLE_FX_LOOPED_COLOUR(iLocal_294, fLocal_295, fLocal_296, fLocal_297, false);
 					}
 				}
 				else if (fVar0 < 1f)
 				{
 					if (iLocal_294 != 0)
 					{
-						UNK_0xF7E25143642732EA(iLocal_294, 0);
+						GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 						iLocal_294 = 0;
 					}
 				}
 				else
 				{
-					UNK_0xA3BF0AA5A2608191(Global_98465);
-					if (!UNK_0x69DF961355195C3C(iLocal_293))
+					TASK::CLEAR_PED_TASKS(Global_98465);
+					if (!PED::IS_SYNCHRONIZED_SCENE_RUNNING(iLocal_293))
 					{
-						iLocal_293 = UNK_0xE9744DB7B8CA6965(vLocal_241, 0f, 0f, bLocal_244, 2);
-						UNK_0xC90224D9E95E5E3A(iLocal_293, true);
+						iLocal_293 = PED::CREATE_SYNCHRONIZED_SCENE(vLocal_241, 0f, 0f, fLocal_244, 2);
+						PED::SET_SYNCHRONIZED_SCENE_LOOPED(iLocal_293, true);
 					}
-					UNK_0x915804B434753CBD(Global_98465, iLocal_293, &uLocal_245, &cLocal_277, 8f, -8f, 257, 0, 8f, 0);
+					TASK::TASK_SYNCHRONIZED_SCENE(Global_98465, iLocal_293, &uLocal_245, &cLocal_277, 8f, -8f, 257, 0, 8f, 0);
 					return true;
 				}
 			}
@@ -1067,19 +1067,19 @@ bool func_26()
 			{
 				if (iLocal_294 != 0)
 				{
-					UNK_0xF7E25143642732EA(iLocal_294, 0);
+					GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 					iLocal_294 = 0;
 				}
 				if (func_3(&uLocal_72, "PRSAUD", "FRAS_IG_7x", 3, 0, 0, 0))
 				{
-					UNK_0xA3BF0AA5A2608191(Global_98465);
-					UNK_0xE972B33144E77B35(Global_98465, 16);
-					if (!UNK_0x69DF961355195C3C(iLocal_293))
+					TASK::CLEAR_PED_TASKS(Global_98465);
+					PED::CLEAR_RAGDOLL_BLOCKING_FLAGS(Global_98465, 16);
+					if (!PED::IS_SYNCHRONIZED_SCENE_RUNNING(iLocal_293))
 					{
-						iLocal_293 = UNK_0xE9744DB7B8CA6965(vLocal_241, 0f, 0f, bLocal_244, 2);
-						UNK_0xC90224D9E95E5E3A(iLocal_293, true);
+						iLocal_293 = PED::CREATE_SYNCHRONIZED_SCENE(vLocal_241, 0f, 0f, fLocal_244, 2);
+						PED::SET_SYNCHRONIZED_SCENE_LOOPED(iLocal_293, true);
 					}
-					UNK_0x915804B434753CBD(Global_98465, iLocal_293, &uLocal_245, &cLocal_277, 8f, -8f, 257, 0, 8f, 0);
+					TASK::TASK_SYNCHRONIZED_SCENE(Global_98465, iLocal_293, &uLocal_245, &cLocal_277, 8f, -8f, 257, 0, 8f, 0);
 					return true;
 				}
 			}
@@ -1104,21 +1104,21 @@ bool func_27()
 
 bool func_28()
 {
-	if (!UNK_0x991B1F0980C62628() || UNK_0x19EC8D83154D7CC1() == 3)
+	if (!STREAMING::IS_PLAYER_SWITCH_IN_PROGRESS() || STREAMING::GET_PLAYER_SWITCH_TYPE() == 3)
 	{
 		return false;
 	}
-	if (UNK_0x00A15D69BCAA5267() > 8)
+	if (STREAMING::GET_PLAYER_SWITCH_STATE() > 8)
 	{
-		if (UNK_0x00A15D69BCAA5267() != 11)
+		if (STREAMING::GET_PLAYER_SWITCH_STATE() != 11)
 		{
 			return false;
 		}
-		if (UNK_0x00A15D69BCAA5267() == 11)
+		if (STREAMING::GET_PLAYER_SWITCH_STATE() == 11)
 		{
-			if (UNK_0x94EFC97F8A693855() > 0)
+			if (STREAMING::GET_PLAYER_SWITCH_INTERP_OUT_DURATION() > 0)
 			{
-				if (UNK_0x192DE42720995A6E() > 100)
+				if (STREAMING::_0x5B48A06DD0E792A5() > 100)
 				{
 					return false;
 				}
@@ -1128,28 +1128,28 @@ bool func_28()
 	return true;
 }
 
-int func_29(int iParam0, bool bParam1)
+int func_29(int iParam0, int iParam1)
 {
 	vector3 vVar0;
 	float fVar3;
 
-	if (UNK_0x991B1F0980C62628())
+	if (STREAMING::IS_PLAYER_SWITCH_IN_PROGRESS())
 	{
-		if (UNK_0x19EC8D83154D7CC1() != 3)
+		if (STREAMING::GET_PLAYER_SWITCH_TYPE() != 3)
 		{
-			if (UNK_0x00A15D69BCAA5267() <= 2 && UNK_0x00A15D69BCAA5267() != 1)
+			if (STREAMING::GET_PLAYER_SWITCH_STATE() <= 2 && STREAMING::GET_PLAYER_SWITCH_STATE() != 1)
 			{
 				return 1;
 			}
 		}
 	}
-	if (!UNK_0x991B1F0980C62628())
+	if (!STREAMING::IS_PLAYER_SWITCH_IN_PROGRESS())
 	{
 		if (func_21(14))
 		{
 			return 0;
 		}
-		if (UNK_0x8F7DE34FFB67592B())
+		if (MISC::GET_IS_PLAYER_IN_ANIMAL_FORM())
 		{
 			return 0;
 		}
@@ -1157,26 +1157,26 @@ int func_29(int iParam0, bool bParam1)
 		{
 			return 0;
 		}
-		if (UNK_0xC844350D5D58C99A(bParam1))
+		if (ENTITY::DOES_ENTITY_EXIST(iParam1))
 		{
-			vVar0 = { UNK_0x68F4C0EC296D3901(bParam1, false) };
-			fVar3 = SYSTEM::VDIST(UNK_0x68F4C0EC296D3901(UNK_0x16F2683693E537C9(), false), vVar0);
+			vVar0 = { ENTITY::GET_ENTITY_COORDS(iParam1, false) };
+			fVar3 = SYSTEM::VDIST(ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false), vVar0);
 			if (fVar3 > 250f)
 			{
-				if (!UNK_0x437347B10A200C4B(bParam1, 0))
+				if (!ENTITY::IS_ENTITY_DEAD(iParam1, false))
 				{
-					if (!UNK_0x0A059E0DB9253280(bParam1))
+					if (!ENTITY::IS_ENTITY_ON_SCREEN(iParam1))
 					{
 						return 0;
 					}
 				}
-				else if (!UNK_0x8E28E832BEAC3DCE(vVar0, 1.5f))
+				else if (!CAM::IS_SPHERE_VISIBLE(vVar0, 1.5f))
 				{
 					return 0;
 				}
 			}
 		}
-		else if (bParam1 == func_30(Global_98465) && bParam1 != 0)
+		else if (iParam1 == func_30(Global_98465) && iParam1 != 0)
 		{
 			Global_98465 = 0;
 		}
@@ -1184,7 +1184,7 @@ int func_29(int iParam0, bool bParam1)
 	return 1;
 }
 
-bool func_30(var uParam0)
+int func_30(var uParam0)
 {
 	return uParam0;
 }
@@ -1211,15 +1211,15 @@ int func_32()
 
 void func_33()
 {
-	if (!UNK_0x991B1F0980C62628())
+	if (!STREAMING::IS_PLAYER_SWITCH_IN_PROGRESS())
 	{
-		if (UNK_0x757EF87A33649210())
+		if (CAM::IS_SCREEN_FADED_OUT())
 		{
 			func_36();
 		}
 		return;
 	}
-	if (UNK_0x19EC8D83154D7CC1() == 3)
+	if (STREAMING::GET_PLAYER_SWITCH_TYPE() == 3)
 	{
 		func_36();
 		return;
@@ -1229,7 +1229,7 @@ void func_33()
 	{
 		return;
 	}
-	UNK_0x36B03FE02FE012AB();
+	STREAMING::_0x74DE2E8739086740();
 }
 
 void func_34()
@@ -1249,75 +1249,75 @@ void func_36()
 
 void func_37()
 {
-	UNK_0x523BCC9DC80CD82F(bLocal_240);
-	UNK_0x9E5E60D8C63FD9D1();
-	while (!UNK_0xC844350D5D58C99A(Global_98465) || !UNK_0xB87F6CF6E5628C67(bLocal_240))
+	STREAMING::REQUEST_MODEL(iLocal_240);
+	STREAMING::REQUEST_PTFX_ASSET();
+	while (!ENTITY::DOES_ENTITY_EXIST(Global_98465) || !STREAMING::HAS_MODEL_LOADED(iLocal_240))
 	{
 		SYSTEM::WAIT(0);
 	}
-	UNK_0x73270B3C9CC833FD(Global_98465, true, 1);
-	if (UNK_0xC844350D5D58C99A(Global_98465))
+	ENTITY::SET_ENTITY_AS_MISSION_ENTITY(Global_98465, true, true);
+	if (ENTITY::DOES_ENTITY_EXIST(Global_98465))
 	{
-		if (!UNK_0xEB6A8945D1AC98A1(Global_98465))
+		if (!PED::IS_PED_INJURED(Global_98465))
 		{
-			UNK_0x93D47DFD0AE94949(Global_98465, -1);
+			TASK::TASK_STAND_STILL(Global_98465, -1);
 		}
-		UNK_0x6DF7BF67E86AAE86(Global_98465, joaat("PLAYER"));
+		PED::SET_PED_RELATIONSHIP_GROUP_HASH(Global_98465, joaat("PLAYER"));
 	}
-	UNK_0x73270B3C9CC833FD(Global_98465, true, 1);
-	UNK_0x4E885A246A9D983A(Global_98465, 132, true);
-	UNK_0x5E678B691C852774(Global_98465, 16);
+	ENTITY::SET_ENTITY_AS_MISSION_ENTITY(Global_98465, true, true);
+	PED::SET_PED_CONFIG_FLAG(Global_98465, 132, true);
+	PED::SET_RAGDOLL_BLOCKING_FLAGS(Global_98465, 16);
 	func_39(&Global_98465, Global_93748);
-	func_38(&uLocal_72, 1, UNK_0x16F2683693E537C9(), "FRANKLIN", 0, 1);
-	bLocal_239 = UNK_0x7707E48765093646(bLocal_240, UNK_0x68F4C0EC296D3901(Global_98465, true), true, true, false);
-	UNK_0x9F528B1B53FBC5D9(bLocal_239, Global_98465, UNK_0x4A089F2B762B8D33(Global_98465, 28422), 0f, 0f, 0f, 0f, 0f, 0f, 0, 0, 0, 0, 2, 1);
+	func_38(&uLocal_72, 1, PLAYER::PLAYER_PED_ID(), "FRANKLIN", 0, 1);
+	iLocal_239 = OBJECT::CREATE_OBJECT(iLocal_240, ENTITY::GET_ENTITY_COORDS(Global_98465, true), true, true, false);
+	ENTITY::ATTACH_ENTITY_TO_ENTITY(iLocal_239, Global_98465, PED::GET_PED_BONE_INDEX(Global_98465, 28422), 0f, 0f, 0f, 0f, 0f, 0f, false, false, false, false, 2, true);
 }
 
-void func_38(var uParam0, int iParam1, bool bParam2, char* sParam3, int iParam4, int iParam5)
+void func_38(var uParam0, int iParam1, int iParam2, char* sParam3, int iParam4, int iParam5)
 {
 	if ((uParam0[iParam1 /*10*/])->f_7 == 1)
 	{
 	}
-	(*uParam0)[iParam1 /*10*/] = bParam2;
+	(*uParam0)[iParam1 /*10*/] = iParam2;
 	StringCopy(&((uParam0[iParam1 /*10*/])->f_1), sParam3, 24);
 	(uParam0[iParam1 /*10*/])->f_7 = 1;
 	(uParam0[iParam1 /*10*/])->f_8 = iParam4;
 	(uParam0[iParam1 /*10*/])->f_9 = iParam5;
 	if (!Global_76622)
 	{
-		if (!UNK_0xEB6A8945D1AC98A1(bParam2))
+		if (!PED::IS_PED_INJURED(iParam2))
 		{
 			if ((uParam0[iParam1 /*10*/])->f_8 == 0)
 			{
-				UNK_0xA245D14CC59CDD36(bParam2, 0);
+				PED::SET_PED_CAN_PLAY_AMBIENT_ANIMS(iParam2, false);
 			}
 			else
 			{
-				UNK_0xA245D14CC59CDD36(bParam2, 1);
+				PED::SET_PED_CAN_PLAY_AMBIENT_ANIMS(iParam2, true);
 			}
 		}
-		if (!UNK_0xEB6A8945D1AC98A1(bParam2))
+		if (!PED::IS_PED_INJURED(iParam2))
 		{
 			if ((uParam0[iParam1 /*10*/])->f_9 == 0)
 			{
-				UNK_0x971EF1DE410C56CF(bParam2, 0);
+				PED::SET_PED_CAN_USE_AUTO_CONVERSATION_LOOKAT(iParam2, false);
 			}
 			else
 			{
-				UNK_0x971EF1DE410C56CF(bParam2, 1);
+				PED::SET_PED_CAN_USE_AUTO_CONVERSATION_LOOKAT(iParam2, true);
 			}
 		}
 	}
 }
 
-void func_39(var uParam0, bool bParam1)
+void func_39(var uParam0, int iParam1)
 {
-	UNK_0x25C5402CC10F76CD(*uParam0, false);
-	UNK_0x4E885A246A9D983A(*uParam0, 20, true);
-	UNK_0x5E678B691C852774(*uParam0, 16);
-	if (bParam1 != joaat("NO_RELATIONSHIP"))
+	PED::SET_PED_CAN_BE_TARGETTED(*uParam0, false);
+	PED::SET_PED_CONFIG_FLAG(*uParam0, 20, true);
+	PED::SET_RAGDOLL_BLOCKING_FLAGS(*uParam0, 16);
+	if (iParam1 != joaat("NO_RELATIONSHIP"))
 	{
-		UNK_0x6DF7BF67E86AAE86(*uParam0, bParam1);
+		PED::SET_PED_RELATIONSHIP_GROUP_HASH(*uParam0, iParam1);
 	}
 }
 
@@ -1331,8 +1331,8 @@ void func_40()
 	var uVar254;
 
 	iLocal_71 = Global_98147;
-	func_46(iLocal_71, &vLocal_241, &bLocal_244, &cVar0);
-	bLocal_240 = joaat("PROP_CS_SPRAY_CAN");
+	func_46(iLocal_71, &vLocal_241, &fLocal_244, &cVar0);
+	iLocal_240 = joaat("PROP_CS_SPRAY_CAN");
 	Var8.f_1 = -1;
 	Var8.f_17 = 4;
 	Var8.f_17.f_8 = 4;
@@ -2401,7 +2401,7 @@ int func_43(struct<109> Param0, var uParam109)
 			*uParam109 = { Param0 };
 			uParam109->f_109 = 1785177548;
 			uParam109->f_110 = 1785177548;
-			func_44(uParam109, 17, 1785177548, 1785177548, UNK_0x79833B02DBD2A244(-5f, 5f), UNK_0x79833B02DBD2A244(-5f, 5f), 0f, UNK_0x79833B02DBD2A244(-180f, 180f));
+			func_44(uParam109, 17, 1785177548, 1785177548, MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), 0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-180f, 180f));
 			uParam109->f_118 = 1;
 			return 1;
 		case 156:
@@ -2422,7 +2422,7 @@ int func_43(struct<109> Param0, var uParam109)
 			*uParam109 = { Param0 };
 			uParam109->f_109 = 1785177548;
 			uParam109->f_110 = 1785177548;
-			func_44(uParam109, 144, 1785177548, 1785177548, UNK_0x79833B02DBD2A244(-5f, 5f), UNK_0x79833B02DBD2A244(-5f, 5f), 0f, UNK_0x79833B02DBD2A244(-180f, 180f));
+			func_44(uParam109, 144, 1785177548, 1785177548, MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), 0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-180f, 180f));
 			uParam109->f_118 = 1;
 			return 1;
 		case 159:
@@ -2699,7 +2699,7 @@ int func_43(struct<109> Param0, var uParam109)
 			*uParam109 = { Param0 };
 			uParam109->f_109 = 1785177548;
 			uParam109->f_110 = 1785177548;
-			func_44(uParam109, 43, 1785177548, 1785177548, UNK_0x79833B02DBD2A244(-5f, 5f), UNK_0x79833B02DBD2A244(-5f, 5f), 0f, UNK_0x79833B02DBD2A244(-180f, 180f));
+			func_44(uParam109, 43, 1785177548, 1785177548, MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), 0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-180f, 180f));
 			uParam109->f_118 = 1;
 			return 1;
 		case 197:
@@ -3016,14 +3016,14 @@ int func_43(struct<109> Param0, var uParam109)
 			*uParam109 = { Param0 };
 			uParam109->f_109 = 1785177548;
 			uParam109->f_110 = 1785177548;
-			func_44(uParam109, 144, 1785177548, 1785177548, UNK_0x79833B02DBD2A244(-5f, 5f), UNK_0x79833B02DBD2A244(-5f, 5f), 0f, UNK_0x79833B02DBD2A244(-180f, 180f));
+			func_44(uParam109, 144, 1785177548, 1785177548, MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), 0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-180f, 180f));
 			uParam109->f_118 = 1;
 			return 1;
 		case 249:
 			*uParam109 = { Param0 };
 			uParam109->f_109 = 1785177548;
 			uParam109->f_110 = 1785177548;
-			func_44(uParam109, 144, 1785177548, 1785177548, UNK_0x79833B02DBD2A244(-5f, 5f), UNK_0x79833B02DBD2A244(-5f, 5f), 0f, UNK_0x79833B02DBD2A244(-180f, 180f));
+			func_44(uParam109, 144, 1785177548, 1785177548, MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-5f, 5f), 0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-180f, 180f));
 			uParam109->f_118 = 1;
 			return 1;
 		case 281:
@@ -3267,11 +3267,11 @@ void func_45(var uParam0)
 	func_44(uParam0, 145, 1435919172, 1435919172, 0f, 0f, 0f, 0f);
 }
 
-int func_46(int iParam0, var uParam1, bool bParam2, char* sParam3)
+int func_46(int iParam0, var uParam1, float fParam2, char* sParam3)
 {
 	int iVar0;
 
-	if (func_49(iParam0, bParam2, sParam3))
+	if (func_49(iParam0, fParam2, sParam3))
 	{
 		switch (iParam0)
 		{
@@ -3282,46 +3282,46 @@ int func_46(int iParam0, var uParam1, bool bParam2, char* sParam3)
 				if (iVar0 < 5)
 				{
 					*uParam1 = { Global_93947[iVar0 /*9*/].f_3 };
-					*bParam2 = Global_93947[iVar0 /*9*/].f_6;
+					*fParam2 = Global_93947[iVar0 /*9*/].f_6;
 					StringCopy(sParam3, "", 32);
 					return 1;
 				}
 				else
 				{
 					*uParam1 = { Global_93947[0 /*9*/].f_3 };
-					*bParam2 = Global_93947[0 /*9*/].f_6;
+					*fParam2 = Global_93947[0 /*9*/].f_6;
 					StringCopy(sParam3, "", 32);
 					return 1;
 				}
 				break;
 			case 2:
 				*uParam1 = { Global_96855[0 /*109*/].f_4 };
-				*bParam2 = Global_96855[0 /*109*/].f_7;
+				*fParam2 = Global_96855[0 /*109*/].f_7;
 				StringCopy(sParam3, "", 32);
 				return 1;
 			case 3:
 				*uParam1 = { Global_96855[1 /*109*/].f_4 };
-				*bParam2 = Global_96855[1 /*109*/].f_7;
+				*fParam2 = Global_96855[1 /*109*/].f_7;
 				StringCopy(sParam3, "", 32);
 				return 1;
 			case 4:
 				*uParam1 = { Global_96855[2 /*109*/].f_4 };
-				*bParam2 = Global_96855[2 /*109*/].f_7;
+				*fParam2 = Global_96855[2 /*109*/].f_7;
 				StringCopy(sParam3, "", 32);
 				return 1;
 			case 5:
 				*uParam1 = { Global_111638.f_2358.f_539.f_2300[0 /*3*/] + Vector(-1f, 0f, 0f) };
-				*bParam2 = Global_111638.f_2358.f_539.f_2310[0];
+				*fParam2 = Global_111638.f_2358.f_539.f_2310[0];
 				StringCopy(sParam3, "", 32);
 				return 1;
 			case 6:
 				*uParam1 = { Global_111638.f_2358.f_539.f_2300[1 /*3*/] + Vector(-1f, 0f, 0f) };
-				*bParam2 = Global_111638.f_2358.f_539.f_2310[1];
+				*fParam2 = Global_111638.f_2358.f_539.f_2310[1];
 				StringCopy(sParam3, "", 32);
 				return 1;
 			case 7:
 				*uParam1 = { Global_111638.f_2358.f_539.f_2300[2 /*3*/] + Vector(-1f, 0f, 0f) };
-				*bParam2 = Global_111638.f_2358.f_539.f_2310[2];
+				*fParam2 = Global_111638.f_2358.f_539.f_2310[2];
 				StringCopy(sParam3, "", 32);
 				return 1;
 		}
@@ -3344,14 +3344,14 @@ bool func_47(int iParam0)
 	vVar1 = { Global_111638.f_2358.f_539.f_2300[iVar0 /*3*/] };
 	if (func_48(vVar1, 0f, 0f, 0f, 0))
 	{
-		vVar1 = { UNK_0x68F4C0EC296D3901(UNK_0x16F2683693E537C9(), false) };
+		vVar1 = { ENTITY::GET_ENTITY_COORDS(PLAYER::PLAYER_PED_ID(), false) };
 	}
 	*iParam0 = 5;
 	fVar4 = 9999999f;
 	iVar5 = 0;
 	while (iVar5 < 5)
 	{
-		if (UNK_0xEAE0D21A50E6C7F4(Global_111638.f_7224.f_11[iVar5], false))
+		if (MISC::IS_BIT_SET(Global_111638.f_7224.f_11[iVar5], 0))
 		{
 			vVar6 = { Global_93947[iVar5 /*9*/].f_3 };
 			fVar9 = SYSTEM::VDIST(vVar1, vVar6);
@@ -3378,7 +3378,7 @@ bool func_48(vector3 vParam0, vector3 vParam3, bool bParam6)
 	return ((vParam0.x == vParam3.x && vParam0.y == vParam3.y) && vParam0.z == vParam3.z);
 }
 
-bool func_49(int iParam0, bool bParam1, char* sParam2)
+bool func_49(int iParam0, float fParam1, char* sParam2)
 {
 	vector3 vVar0;
 	int iVar3;
@@ -3397,314 +3397,314 @@ bool func_49(int iParam0, bool bParam1, char* sParam2)
 			func_47(&iVar3);
 			if (iVar3 < 5)
 			{
-				*bParam1 = Global_93947[iVar3 /*9*/].f_6;
+				*fParam1 = Global_93947[iVar3 /*9*/].f_6;
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			else
 			{
-				*bParam1 = Global_93947[0 /*9*/].f_6;
+				*fParam1 = Global_93947[0 /*9*/].f_6;
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 2:
-			*bParam1 = Global_96855[0 /*109*/].f_7;
+			*fParam1 = Global_96855[0 /*109*/].f_7;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 3:
-			*bParam1 = Global_96855[1 /*109*/].f_7;
+			*fParam1 = Global_96855[1 /*109*/].f_7;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 4:
-			*bParam1 = Global_96855[2 /*109*/].f_7;
+			*fParam1 = Global_96855[2 /*109*/].f_7;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 5:
-			*bParam1 = Global_111638.f_2358.f_539.f_2310[0];
+			*fParam1 = Global_111638.f_2358.f_539.f_2310[0];
 			StringCopy(sParam2, func_53(Global_111638.f_2358.f_539.f_2314[0]), 32);
 			return true;
 		case 6:
-			*bParam1 = Global_111638.f_2358.f_539.f_2310[1];
+			*fParam1 = Global_111638.f_2358.f_539.f_2310[1];
 			StringCopy(sParam2, func_53(Global_111638.f_2358.f_539.f_2314[1]), 32);
 			return true;
 		case 7:
-			*bParam1 = Global_111638.f_2358.f_539.f_2310[2];
+			*fParam1 = Global_111638.f_2358.f_539.f_2310[2];
 			StringCopy(sParam2, func_53(Global_111638.f_2358.f_539.f_2314[2]), 32);
 			return true;
 		case 11:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "v_strip3", 32);
 				return true;
 			}
 			break;
 		case 8:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 9:
-			return func_49(8, bParam1, sParam2);
+			return func_49(8, fParam1, sParam2);
 		case 10:
-			return func_49(8, bParam1, sParam2);
+			return func_49(8, fParam1, sParam2);
 		case 13:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 14:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 15:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 12:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 16:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 17:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 18:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 19:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 20:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 21:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 22:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 74:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 23:
-			return func_49(208, bParam1, sParam2);
+			return func_49(208, fParam1, sParam2);
 		case 24:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 67:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 25:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 26:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 27:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 28:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 29:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 30:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 31:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 32:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 33:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 34:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 35:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 36:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 37:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 58:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 59:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 60:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 38:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 39:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 40:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "v_trailer", 32);
 				return true;
 			}
 			break;
 		case 41:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 42:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 43:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 44:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 45:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 46:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 47:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 49:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 48:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
@@ -3712,1102 +3712,1102 @@ bool func_49(int iParam0, bool bParam1, char* sParam2)
 			break;
 		case 124:
 			vVar0 = { -803.734f, 168.148f, 76.3542f };
-			*bParam1 = 105f;
+			*fParam1 = 105f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 50:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 51:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 52:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 66:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 53:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 54:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 55:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 56:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 57:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 61:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 62:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 63:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 68:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 69:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 64:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 65:
-			if (func_52(iParam0, &vVar0, bParam1))
+			if (func_52(iParam0, &vVar0, fParam1))
 			{
 				StringCopy(sParam2, "", 32);
 				return true;
 			}
 			break;
 		case 70:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 71:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 72:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 73:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return false;
 		case 234:
-			*bParam1 = 122.69f;
+			*fParam1 = 122.69f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 316:
-			*bParam1 = -60.31f;
+			*fParam1 = -60.31f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 315:
-			*bParam1 = (41.654f - 180f);
+			*fParam1 = (41.654f - 180f);
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 75:
-			*bParam1 = -172.697f;
+			*fParam1 = -172.697f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 76:
-			*bParam1 = (181.8927f - 180f);
+			*fParam1 = (181.8927f - 180f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 77:
-			*bParam1 = -158f;
+			*fParam1 = -158f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 78:
-			*bParam1 = -152f;
+			*fParam1 = -152f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 79:
-			*bParam1 = 20.353f;
+			*fParam1 = 20.353f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 80:
-			*bParam1 = (-48.53f + 180f);
+			*fParam1 = (-48.53f + 180f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 81:
-			*bParam1 = -45f;
+			*fParam1 = -45f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 82:
-			*bParam1 = -113.748f;
+			*fParam1 = -113.748f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 83:
-			*bParam1 = -173.748f;
+			*fParam1 = -173.748f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 84:
-			*bParam1 = 32.7938f;
+			*fParam1 = 32.7938f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 85:
-			*bParam1 = -56f;
+			*fParam1 = -56f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 86:
-			*bParam1 = 13f;
+			*fParam1 = 13f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 87:
-			*bParam1 = 166.32f;
+			*fParam1 = 166.32f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 88:
-			*bParam1 = 21f;
-			*bParam1 = -132f;
+			*fParam1 = 21f;
+			*fParam1 = -132f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 89:
-			*bParam1 = -84.8108f;
+			*fParam1 = -84.8108f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 90:
-			*bParam1 = -90.5046f;
+			*fParam1 = -90.5046f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 91:
-			*bParam1 = 105.0795f;
+			*fParam1 = 105.0795f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 92:
-			*bParam1 = -54.347f;
+			*fParam1 = -54.347f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 93:
-			*bParam1 = 117f;
+			*fParam1 = 117f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 94:
-			*bParam1 = -36f;
+			*fParam1 = -36f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 95:
-			*bParam1 = 70f;
+			*fParam1 = 70f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 96:
-			*bParam1 = 34.621f;
+			*fParam1 = 34.621f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 97:
-			*bParam1 = -45f;
+			*fParam1 = -45f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 98:
-			*bParam1 = (-150.6148f + 0.0095f);
-			*bParam1 = (*bParam1 + 0.0004f);
-			*bParam1 = (*bParam1 + 0.0015f);
-			*bParam1 = (*bParam1 + 0.0002f);
-			*bParam1 = (*bParam1 + -0.0009f);
+			*fParam1 = (-150.6148f + 0.0095f);
+			*fParam1 = (*fParam1 + 0.0004f);
+			*fParam1 = (*fParam1 + 0.0015f);
+			*fParam1 = (*fParam1 + 0.0002f);
+			*fParam1 = (*fParam1 + -0.0009f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 99:
-			*bParam1 = -57f;
+			*fParam1 = -57f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 100:
-			*bParam1 = 84.6073f;
+			*fParam1 = 84.6073f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 101:
-			*bParam1 = 249.0753f;
+			*fParam1 = 249.0753f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 102:
-			*bParam1 = 69f;
+			*fParam1 = 69f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 103:
-			*bParam1 = 143.4931f;
+			*fParam1 = 143.4931f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 104:
-			*bParam1 = 123f;
+			*fParam1 = 123f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 105:
-			*bParam1 = 168f;
+			*fParam1 = 168f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 106:
-			*bParam1 = 63.4995f;
+			*fParam1 = 63.4995f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 107:
-			*bParam1 = -159f;
+			*fParam1 = -159f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 108:
-			*bParam1 = -6f;
+			*fParam1 = -6f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 109:
-			*bParam1 = 99f;
+			*fParam1 = 99f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 110:
-			*bParam1 = 133f;
+			*fParam1 = 133f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 111:
-			*bParam1 = 33f;
+			*fParam1 = 33f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 112:
-			*bParam1 = -162.311f;
+			*fParam1 = -162.311f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 113:
-			*bParam1 = 172f;
+			*fParam1 = 172f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 135:
-			*bParam1 = -59.25f;
+			*fParam1 = -59.25f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 136:
-			*bParam1 = 82.254f;
+			*fParam1 = 82.254f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 137:
-			*bParam1 = -152.965f;
+			*fParam1 = -152.965f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 138:
-			*bParam1 = -10.099f;
+			*fParam1 = -10.099f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 139:
-			*bParam1 = 158.5974f;
+			*fParam1 = 158.5974f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 140:
-			*bParam1 = 99.18f;
+			*fParam1 = 99.18f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 141:
-			*bParam1 = 218.4774f;
+			*fParam1 = 218.4774f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 142:
-			*bParam1 = 125.6193f;
+			*fParam1 = 125.6193f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 143:
-			*bParam1 = 142.373f;
+			*fParam1 = 142.373f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 144:
-			*bParam1 = -34.878f;
+			*fParam1 = -34.878f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 145:
-			*bParam1 = -172.419f;
+			*fParam1 = -172.419f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 146:
-			*bParam1 = -107.439f;
+			*fParam1 = -107.439f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 147:
-			*bParam1 = 157.311f;
+			*fParam1 = 157.311f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 148:
-			*bParam1 = -68.812f;
+			*fParam1 = -68.812f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 149:
-			*bParam1 = 4.693f;
+			*fParam1 = 4.693f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 150:
-			*bParam1 = 78.65f;
+			*fParam1 = 78.65f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 114:
-			*bParam1 = 8f;
+			*fParam1 = 8f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 115:
-			*bParam1 = 69f;
+			*fParam1 = 69f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 116:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 117:
-			*bParam1 = -74.7818f;
+			*fParam1 = -74.7818f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 118:
-			*bParam1 = -48.36f;
+			*fParam1 = -48.36f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 119:
-			*bParam1 = 144.178f;
+			*fParam1 = 144.178f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 120:
-			*bParam1 = 288f;
+			*fParam1 = 288f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 121:
-			*bParam1 = 101.5f;
+			*fParam1 = 101.5f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 122:
-			*bParam1 = 99.72f;
+			*fParam1 = 99.72f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 123:
-			*bParam1 = 120f;
+			*fParam1 = 120f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 125:
-			*bParam1 = -3f;
+			*fParam1 = -3f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 126:
-			*bParam1 = -158.0894f;
+			*fParam1 = -158.0894f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 127:
-			*bParam1 = -76.3681f;
+			*fParam1 = -76.3681f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 128:
-			*bParam1 = (30f + 180f);
+			*fParam1 = (30f + 180f);
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 129:
-			*bParam1 = -80.6f;
+			*fParam1 = -80.6f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 130:
-			*bParam1 = -9.1673f;
+			*fParam1 = -9.1673f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 131:
-			*bParam1 = -86.0894f;
+			*fParam1 = -86.0894f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 132:
-			*bParam1 = -161.0894f;
+			*fParam1 = -161.0894f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 133:
-			*bParam1 = (226.5579f - 270f);
+			*fParam1 = (226.5579f - 270f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 134:
-			*bParam1 = -33.128f;
+			*fParam1 = -33.128f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 151:
-			*bParam1 = -6f;
+			*fParam1 = -6f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 152:
-			*bParam1 = 72f;
+			*fParam1 = 72f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 153:
-			*bParam1 = -176.25f;
+			*fParam1 = -176.25f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 154:
-			*bParam1 = -147.192f;
+			*fParam1 = -147.192f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 155:
-			*bParam1 = 59.082f;
+			*fParam1 = 59.082f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 156:
-			*bParam1 = 26.087f;
+			*fParam1 = 26.087f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 157:
-			*bParam1 = 37.27f;
+			*fParam1 = 37.27f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 158:
-			*bParam1 = -13.8153f;
+			*fParam1 = -13.8153f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 159:
-			*bParam1 = -62.5f;
+			*fParam1 = -62.5f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 160:
-			*bParam1 = 119f;
+			*fParam1 = 119f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 161:
-			*bParam1 = 86.3776f;
+			*fParam1 = 86.3776f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 162:
-			*bParam1 = 117f;
+			*fParam1 = 117f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 163:
-			*bParam1 = -164f;
+			*fParam1 = -164f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 164:
-			*bParam1 = 88f;
+			*fParam1 = 88f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 165:
-			*bParam1 = -144.622f;
+			*fParam1 = -144.622f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 166:
-			*bParam1 = -61.2262f;
+			*fParam1 = -61.2262f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 167:
-			*bParam1 = -22.32f;
+			*fParam1 = -22.32f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 168:
 			if (func_50(0, 25, &uVar4, &fVar7))
 			{
-				*bParam1 = (fVar7 + 222.8314f);
+				*fParam1 = (fVar7 + 222.8314f);
 				StringCopy(sParam2, "v_michael", 32);
 				return true;
 			}
 			break;
 		case 169:
-			*bParam1 = 112.841f;
+			*fParam1 = 112.841f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 		case 170:
-			*bParam1 = (-103.8158f + 180f);
+			*fParam1 = (-103.8158f + 180f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 171:
-			*bParam1 = -28.0926f;
+			*fParam1 = -28.0926f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 173:
-			*bParam1 = -0.0301f;
+			*fParam1 = -0.0301f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 172:
-			*bParam1 = -30.185f;
-			*bParam1 = (*bParam1 + 0.003f);
+			*fParam1 = -30.185f;
+			*fParam1 = (*fParam1 + 0.003f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 174:
-			*bParam1 = 14.98f;
+			*fParam1 = 14.98f;
 			StringCopy(sParam2, "v_michael", 32);
 			return true;
 	}
 	switch (iParam0)
 	{
 		case 175:
-			*bParam1 = -179.653f;
+			*fParam1 = -179.653f;
 			StringCopy(sParam2, "v_franklins", 32);
 			return true;
 		case 176:
-			*bParam1 = -147f;
+			*fParam1 = -147f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 177:
-			*bParam1 = -81f;
+			*fParam1 = -81f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 178:
-			*bParam1 = -95.4016f;
+			*fParam1 = -95.4016f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 179:
-			*bParam1 = (-16.0627f + 180f);
+			*fParam1 = (-16.0627f + 180f);
 			StringCopy(sParam2, "v_franklins", 32);
 			return true;
 		case 180:
-			*bParam1 = 129f;
+			*fParam1 = 129f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 181:
-			*bParam1 = -86.613f;
+			*fParam1 = -86.613f;
 			StringCopy(sParam2, "v_franklins", 32);
 			return true;
 		case 182:
-			*bParam1 = -63f;
+			*fParam1 = -63f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 183:
-			*bParam1 = 111.688f;
+			*fParam1 = 111.688f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 184:
-			*bParam1 = 143.7974f;
+			*fParam1 = 143.7974f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 185:
-			*bParam1 = 143.792f;
+			*fParam1 = 143.792f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 186:
-			*bParam1 = 4.6834f;
+			*fParam1 = 4.6834f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 187:
-			*bParam1 = -108f;
+			*fParam1 = -108f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 188:
-			*bParam1 = 69f;
+			*fParam1 = 69f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 189:
-			*bParam1 = -172.2207f;
+			*fParam1 = -172.2207f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 190:
-			*bParam1 = 0f;
+			*fParam1 = 0f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 191:
-			*bParam1 = -12.5158f;
+			*fParam1 = -12.5158f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 196:
-			*bParam1 = -1.5f;
+			*fParam1 = -1.5f;
 			StringCopy(sParam2, "v_franklins", 32);
 			return true;
 		case 197:
-			*bParam1 = 27f;
+			*fParam1 = 27f;
 			StringCopy(sParam2, "v_franklinshouse", 32);
 			return true;
 		case 192:
-			*bParam1 = 107.981f;
+			*fParam1 = 107.981f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 193:
-			*bParam1 = 172.9187f;
+			*fParam1 = 172.9187f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 194:
-			*bParam1 = -67.608f;
+			*fParam1 = -67.608f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 195:
-			*bParam1 = 74.1158f;
+			*fParam1 = 74.1158f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 198:
-			*bParam1 = 1.0411f;
+			*fParam1 = 1.0411f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 199:
-			*bParam1 = -152.203f;
+			*fParam1 = -152.203f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 200:
-			*bParam1 = (310.879f - 180f);
+			*fParam1 = (310.879f - 180f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 201:
-			*bParam1 = 130.879f;
+			*fParam1 = 130.879f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 202:
-			*bParam1 = 35.604f;
+			*fParam1 = 35.604f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 203:
-			*bParam1 = -93f;
+			*fParam1 = -93f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 204:
-			*bParam1 = -119.3944f;
+			*fParam1 = -119.3944f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 205:
-			*bParam1 = 121.9322f;
+			*fParam1 = 121.9322f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 206:
-			*bParam1 = -36f;
+			*fParam1 = -36f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 207:
-			*bParam1 = -95.588f;
+			*fParam1 = -95.588f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 208:
-			*bParam1 = 168f;
+			*fParam1 = 168f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 209:
-			*bParam1 = 230.78f;
+			*fParam1 = 230.78f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 210:
-			*bParam1 = 165.7751f;
+			*fParam1 = 165.7751f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 211:
-			*bParam1 = -179f;
+			*fParam1 = -179f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 212:
-			*bParam1 = 1.2709f;
+			*fParam1 = 1.2709f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 213:
-			*bParam1 = 84f;
+			*fParam1 = 84f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 214:
-			*bParam1 = -117.03f;
+			*fParam1 = -117.03f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 215:
-			*bParam1 = -49.0324f;
+			*fParam1 = -49.0324f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 216:
-			*bParam1 = -45f;
+			*fParam1 = -45f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 217:
-			*bParam1 = 153f;
+			*fParam1 = 153f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 221:
-			*bParam1 = 84.96f;
+			*fParam1 = 84.96f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 222:
-			*bParam1 = -59.3848f;
+			*fParam1 = -59.3848f;
 			StringCopy(sParam2, "v_chopshop", 32);
 			return true;
 		case 223:
-			*bParam1 = 43.82f;
+			*fParam1 = 43.82f;
 			StringCopy(sParam2, "v_chopshop", 32);
 			return true;
 		case 224:
-			return func_49(222, bParam1, sParam2);
+			return func_49(222, fParam1, sParam2);
 		case 226:
-			*bParam1 = 160f;
+			*fParam1 = 160f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 227:
-			*bParam1 = -14.749f;
+			*fParam1 = -14.749f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 228:
-			*bParam1 = -150f;
+			*fParam1 = -150f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 229:
-			*bParam1 = 96.0116f;
+			*fParam1 = 96.0116f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 230:
-			*bParam1 = -43.6661f;
+			*fParam1 = -43.6661f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 218:
-			*bParam1 = -70.4124f;
+			*fParam1 = -70.4124f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 219:
-			*bParam1 = -12f;
+			*fParam1 = -12f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 220:
-			*bParam1 = -117.356f;
+			*fParam1 = -117.356f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 225:
-			*bParam1 = -83.8f;
+			*fParam1 = -83.8f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 231:
-			*bParam1 = 350.3382f;
+			*fParam1 = 350.3382f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 232:
-			*bParam1 = 109.0206f;
+			*fParam1 = 109.0206f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 233:
-			*bParam1 = 109.0206f;
+			*fParam1 = 109.0206f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 235:
-			*bParam1 = -112f;
+			*fParam1 = -112f;
 			StringCopy(sParam2, "v_strip3", 32);
 			return true;
 		case 236:
-			*bParam1 = 114f;
+			*fParam1 = 114f;
 			StringCopy(sParam2, "v_strip3", 32);
 			return true;
 		case 237:
-			*bParam1 = 30f;
+			*fParam1 = 30f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 238:
-			*bParam1 = -164f;
+			*fParam1 = -164f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 239:
-			*bParam1 = -122f;
+			*fParam1 = -122f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 240:
-			*bParam1 = -4.124f;
+			*fParam1 = -4.124f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 241:
-			*bParam1 = 108f;
+			*fParam1 = 108f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 242:
-			*bParam1 = 13.7207f;
+			*fParam1 = 13.7207f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 245:
-			*bParam1 = 27.746f;
+			*fParam1 = 27.746f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 243:
-			*bParam1 = 18f;
+			*fParam1 = 18f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 244:
-			*bParam1 = -51f;
+			*fParam1 = -51f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 246:
-			*bParam1 = -165f;
+			*fParam1 = -165f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 247:
-			*bParam1 = 133f;
+			*fParam1 = 133f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 248:
-			*bParam1 = 10.77f;
+			*fParam1 = 10.77f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 249:
-			*bParam1 = (138f - 180f);
+			*fParam1 = (138f - 180f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 250:
-			*bParam1 = 87f;
+			*fParam1 = 87f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 251:
-			*bParam1 = -42.8529f;
+			*fParam1 = -42.8529f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 252:
-			*bParam1 = 2.6497f;
+			*fParam1 = 2.6497f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 253:
-			*bParam1 = 135f;
+			*fParam1 = 135f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 254:
-			*bParam1 = -40f;
+			*fParam1 = -40f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 255:
-			*bParam1 = 30.24f;
+			*fParam1 = 30.24f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 264:
-			*bParam1 = -90f;
+			*fParam1 = -90f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 265:
-			*bParam1 = -144.274f;
+			*fParam1 = -144.274f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 266:
-			*bParam1 = 68.8227f;
+			*fParam1 = 68.8227f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 267:
-			*bParam1 = 56.2037f;
+			*fParam1 = 56.2037f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 268:
-			*bParam1 = 33f;
+			*fParam1 = 33f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 269:
-			*bParam1 = -106.6605f;
+			*fParam1 = -106.6605f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 270:
-			*bParam1 = -102f;
+			*fParam1 = -102f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 271:
-			*bParam1 = 26.3597f;
+			*fParam1 = 26.3597f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 272:
-			*bParam1 = -83.3175f;
+			*fParam1 = -83.3175f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 273:
-			*bParam1 = -153f;
+			*fParam1 = -153f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 274:
-			*bParam1 = 9f;
+			*fParam1 = 9f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 275:
-			*bParam1 = (277.613f - 360f);
+			*fParam1 = (277.613f - 360f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 276:
-			*bParam1 = -4.7459f;
+			*fParam1 = -4.7459f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 277:
-			*bParam1 = -98.56f;
+			*fParam1 = -98.56f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 278:
-			*bParam1 = -33.77f;
+			*fParam1 = -33.77f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 279:
-			*bParam1 = 155.68f;
+			*fParam1 = 155.68f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 280:
-			*bParam1 = -49.56f;
+			*fParam1 = -49.56f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 281:
-			*bParam1 = -5.8739f;
+			*fParam1 = -5.8739f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 282:
-			*bParam1 = 70.1627f;
+			*fParam1 = 70.1627f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 283:
-			*bParam1 = 158.979f;
+			*fParam1 = 158.979f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 284:
-			*bParam1 = -67.1851f;
+			*fParam1 = -67.1851f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 285:
-			*bParam1 = 47.054f;
+			*fParam1 = 47.054f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 256:
-			*bParam1 = 120f;
+			*fParam1 = 120f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 257:
-			*bParam1 = 171.253f;
+			*fParam1 = 171.253f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 258:
-			*bParam1 = 10.247f;
+			*fParam1 = 10.247f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 259:
-			*bParam1 = -32.488f;
+			*fParam1 = -32.488f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 260:
-			*bParam1 = -29.093f;
+			*fParam1 = -29.093f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 261:
-			*bParam1 = 229.6085f;
+			*fParam1 = 229.6085f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 286:
-			*bParam1 = -150f;
+			*fParam1 = -150f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 287:
-			*bParam1 = -81f;
+			*fParam1 = -81f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 288:
-			*bParam1 = 12f;
+			*fParam1 = 12f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 262:
-			*bParam1 = -90f;
+			*fParam1 = -90f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 263:
-			*bParam1 = -171f;
+			*fParam1 = -171f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 289:
-			*bParam1 = -11.5018f;
+			*fParam1 = -11.5018f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 290:
-			*bParam1 = -129f;
+			*fParam1 = -129f;
 			StringCopy(sParam2, "v_strip3", 32);
 			return true;
 		case 291:
-			*bParam1 = -147f;
+			*fParam1 = -147f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 292:
-			*bParam1 = 28.7271f;
+			*fParam1 = 28.7271f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 293:
-			*bParam1 = 28.7271f;
+			*fParam1 = 28.7271f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 294:
-			return func_49(293, bParam1, sParam2);
+			return func_49(293, fParam1, sParam2);
 		case 295:
-			return func_49(292, bParam1, sParam2);
+			return func_49(292, fParam1, sParam2);
 		case 299:
-			*bParam1 = 34.661f;
+			*fParam1 = 34.661f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 300:
-			return func_49(303, bParam1, sParam2);
+			return func_49(303, fParam1, sParam2);
 		case 301:
-			return func_49(303, bParam1, sParam2);
+			return func_49(303, fParam1, sParam2);
 		case 302:
-			return func_49(303, bParam1, sParam2);
+			return func_49(303, fParam1, sParam2);
 		case 303:
-			*bParam1 = 32f;
+			*fParam1 = 32f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 296:
-			*bParam1 = 116.742f;
+			*fParam1 = 116.742f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 297:
-			*bParam1 = 100.46f;
+			*fParam1 = 100.46f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 298:
-			*bParam1 = 102f;
+			*fParam1 = 102f;
 			StringCopy(sParam2, "v_Trevors", 32);
 			return true;
 		case 304:
-			*bParam1 = -152.0894f;
+			*fParam1 = -152.0894f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 305:
-			*bParam1 = 122.5269f;
+			*fParam1 = 122.5269f;
 			StringCopy(sParam2, "v_methlab", 32);
 			return true;
 		case 306:
 			vVar8 = { -7.4998f, 7.4995f, -0.5258f };
-			*bParam1 = UNK_0xE7D606C557C86100(-vVar8.x, -vVar8.y);
+			*fParam1 = MISC::GET_HEADING_FROM_VECTOR_2D(-vVar8.x, -vVar8.y);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 307:
 			vVar11 = { 10.6345f, 0.7246f, 1.2508f };
-			*bParam1 = UNK_0xE7D606C557C86100(-vVar11.x, -vVar11.y);
+			*fParam1 = MISC::GET_HEADING_FROM_VECTOR_2D(-vVar11.x, -vVar11.y);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 308:
 			vVar14 = { -3.4271f, -13.6787f, -1.4107f };
-			*bParam1 = UNK_0xE7D606C557C86100(-vVar14.x, -vVar14.y);
+			*fParam1 = MISC::GET_HEADING_FROM_VECTOR_2D(-vVar14.x, -vVar14.y);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 309:
 			vVar17 = { -19.6582f, 7.896f, 0.1334f };
-			*bParam1 = UNK_0xE7D606C557C86100(-vVar17.x, -vVar17.y);
+			*fParam1 = MISC::GET_HEADING_FROM_VECTOR_2D(-vVar17.x, -vVar17.y);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 310:
-			*bParam1 = -87.7215f;
+			*fParam1 = -87.7215f;
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 311:
-			*bParam1 = -145f;
+			*fParam1 = -145f;
 			StringCopy(sParam2, "v_trailer", 32);
 			return true;
 		case 312:
-			*bParam1 = ((103.2841f + 88.7571f) / 2f);
+			*fParam1 = ((103.2841f + 88.7571f) / 2f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 313:
-			*bParam1 = (-177f + 180f);
+			*fParam1 = (-177f + 180f);
 			StringCopy(sParam2, "", 32);
 			return true;
 		case 314:
-			*bParam1 = 327.7746f;
+			*fParam1 = 327.7746f;
 			StringCopy(sParam2, "", 32);
 			return true;
 	}
-	*bParam1 = 0f;
+	*fParam1 = 0f;
 	StringCopy(sParam2, "", 32);
 	return false;
 }
@@ -5041,8 +5041,8 @@ bool func_50(int iParam0, int iParam1, var uParam2, float fParam3)
 			switch (iParam0)
 			{
 				case 0:
-					*uParam2 = { Vector(0f, -11.0022f, -0.4395f) + Vector(0f, UNK_0x79833B02DBD2A244(-0.5f, 0.5f), UNK_0x79833B02DBD2A244(-0.5f, 0.5f)) };
-					*fParam3 = (306f + UNK_0x79833B02DBD2A244(10f, 10f));
+					*uParam2 = { Vector(0f, -11.0022f, -0.4395f) + Vector(0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-0.5f, 0.5f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-0.5f, 0.5f)) };
+					*fParam3 = (306f + MISC::GET_RANDOM_FLOAT_IN_RANGE(10f, 10f));
 					return true;
 			}
 			break;
@@ -5052,7 +5052,7 @@ bool func_50(int iParam0, int iParam1, var uParam2, float fParam3)
 				case 0:
 					*uParam2 = { Vector(60.2063f, 141.5129f, -863.5425f) - Vector(71.1531f, 179.5117f, -812.0607f) - Vector(1f, 0f, 0f) };
 					*uParam2 = { *uParam2 * Vector(0.95f, 0.95f, 0.95f) };
-					*fParam3 = UNK_0xE7D606C557C86100(*uParam2, uParam2->f_1);
+					*fParam3 = MISC::GET_HEADING_FROM_VECTOR_2D(*uParam2, uParam2->f_1);
 					return true;
 			}
 			break;
@@ -5353,8 +5353,8 @@ bool func_50(int iParam0, int iParam1, var uParam2, float fParam3)
 					Jump @7966; //curOff = 4328
 					if (func_50(iParam0, 59, uParam2, fParam3))
 					{
-						*uParam2 = { *uParam2 + Vector(0f, UNK_0x79833B02DBD2A244(-1f, 1f), UNK_0x79833B02DBD2A244(-1f, 1f)) };
-						*fParam3 = (*fParam3 + UNK_0x79833B02DBD2A244(-10f, 10f));
+						*uParam2 = { *uParam2 + Vector(0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-1f, 1f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-1f, 1f)) };
+						*fParam3 = (*fParam3 + MISC::GET_RANDOM_FLOAT_IN_RANGE(-10f, 10f));
 						return true;
 					}
 					Jump @7966; //curOff = 4393
@@ -5816,8 +5816,8 @@ bool func_50(int iParam0, int iParam1, var uParam2, float fParam3)
 						case 13:
 							if (func_50(iParam0, 130, uParam2, fParam3))
 							{
-								*uParam2 = { *uParam2 + Vector(0f, UNK_0x79833B02DBD2A244(-1f, 1f), UNK_0x79833B02DBD2A244(-1f, 1f)) };
-								*fParam3 = (*fParam3 + UNK_0x79833B02DBD2A244(-10f, 10f));
+								*uParam2 = { *uParam2 + Vector(0f, MISC::GET_RANDOM_FLOAT_IN_RANGE(-1f, 1f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-1f, 1f)) };
+								*fParam3 = (*fParam3 + MISC::GET_RANDOM_FLOAT_IN_RANGE(-10f, 10f));
 								return true;
 							}
 							break;
@@ -5835,7 +5835,7 @@ bool func_50(int iParam0, int iParam1, var uParam2, float fParam3)
 					{
 						case 13:
 							*uParam2 = { Vector((9.6327f + 1f), -1518.736f, -1148.466f) - Vector(9.6346f, -1517.601f, -1152.571f) };
-							*fParam3 = UNK_0x79833B02DBD2A244(0f, 360f);
+							*fParam3 = MISC::GET_RANDOM_FLOAT_IN_RANGE(0f, 360f);
 							return true;
 					}
 					Jump @7966; //curOff = 7692
@@ -5875,290 +5875,290 @@ bool func_50(int iParam0, int iParam1, var uParam2, float fParam3)
 					*fParam3 = 0f;
 					return false;
 					Jump @7966; //curOff = 7910
-					*uParam2 = { UNK_0x79833B02DBD2A244(-10f, 10f), UNK_0x79833B02DBD2A244(-10f, 10f), 0f };
-					*fParam3 = UNK_0x79833B02DBD2A244(0f, 360f);
+					*uParam2 = { MISC::GET_RANDOM_FLOAT_IN_RANGE(-10f, 10f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-10f, 10f), 0f };
+					*fParam3 = MISC::GET_RANDOM_FLOAT_IN_RANGE(0f, 360f);
 					return false;
-					*uParam2 = { UNK_0x79833B02DBD2A244(-10f, 10f), UNK_0x79833B02DBD2A244(-10f, 10f), 0f };
-					*fParam3 = UNK_0x79833B02DBD2A244(0f, 360f);
+					*uParam2 = { MISC::GET_RANDOM_FLOAT_IN_RANGE(-10f, 10f), MISC::GET_RANDOM_FLOAT_IN_RANGE(-10f, 10f), 0f };
+					*fParam3 = MISC::GET_RANDOM_FLOAT_IN_RANGE(0f, 360f);
 					return false;
 				}
 
 bool func_51()
 {
-	if (UNK_0xEAE0D21A50E6C7F4(UNK_0x09AC81E49EA267F7(false, 65535), false))
+	if (MISC::IS_BIT_SET(MISC::GET_RANDOM_INT_IN_RANGE(0, 65535), 0))
 	{
 		return true;
 	}
 	return false;
 }
 
-bool func_52(int iParam0, var uParam1, bool bParam2)
+bool func_52(int iParam0, var uParam1, float fParam2)
 {
 	switch (iParam0)
 	{
 		case 11:
 			*uParam1 = { 115.1569f, -1286.684f, 28.2613f };
-			*bParam2 = 111f;
+			*fParam2 = 111f;
 			return true;
 		case 8:
 			*uParam1 = { -90.0089f, -1324.195f, 28.3203f };
-			*bParam2 = 194.1887f;
+			*fParam2 = 194.1887f;
 			return true;
 		case 9:
-			return func_52(8, uParam1, bParam2);
+			return func_52(8, uParam1, fParam2);
 		case 10:
-			return func_52(8, uParam1, bParam2);
+			return func_52(8, uParam1, fParam2);
 		case 13:
 			*uParam1 = { -807.2979f, -48.4004f, 36.8173f };
-			*bParam2 = 201.6328f;
+			*fParam2 = 201.6328f;
 			return true;
 		case 14:
 			*uParam1 = { 1432.34f, -1887.383f, 70.5768f };
-			*bParam2 = 350.0509f;
+			*fParam2 = 350.0509f;
 			return true;
 		case 15:
 			*uParam1 = { 1666.204f, 1967.25f, 143.3213f };
-			*bParam2 = 0.7896f;
+			*fParam2 = 0.7896f;
 			return true;
 		case 12:
 			*uParam1 = { -1440.22f, -127.02f, 50f };
-			*bParam2 = 42f;
+			*fParam2 = 42f;
 			return true;
 		case 16:
 			*uParam1 = { 135.055f, -1759.64f, 27.8957f };
-			*bParam2 = -129f;
+			*fParam2 = -129f;
 			return true;
 		case 17:
 			*uParam1 = { 687.6992f, -1744.03f, 28.3624f };
-			*bParam2 = 267.1409f;
+			*fParam2 = 267.1409f;
 			return true;
 		case 18:
 			*uParam1 = { 56.5117f, -744.6122f, 43.1356f };
-			*bParam2 = 340.0526f;
+			*fParam2 = 340.0526f;
 			return true;
 		case 19:
 			*uParam1 = { 506.485f, -1884.967f, 24.764f };
-			*bParam2 = 22.9566f;
+			*fParam2 = 22.9566f;
 			return true;
 		case 20:
 			*uParam1 = { 1555.958f, 953.6136f, 77.2063f };
-			*bParam2 = 152.8118f;
+			*fParam2 = 152.8118f;
 			return true;
 		case 21:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 22:
 			*uParam1 = { 220.72f, -64.4177f, 68.2922f };
-			*bParam2 = (250.4535f - 360f);
+			*fParam2 = (250.4535f - 360f);
 			return true;
 		case 74:
 			*uParam1 = { 2048.07f, 3840.84f, 34.2238f };
-			*bParam2 = 119.603f;
+			*fParam2 = 119.603f;
 			return true;
 		case 23:
 			*uParam1 = { -464.22f, -1592.98f, 38.73f };
-			*bParam2 = 168f;
+			*fParam2 = 168f;
 			return true;
 		case 24:
 			*uParam1 = { (744.79f + 0.0186f), (-465.86f - 0.0114f), 36.6399f };
-			*bParam2 = 51.7279f;
+			*fParam2 = 51.7279f;
 			return true;
 		case 67:
 			*uParam1 = { -9f, 508.1f, 173.6278f };
-			*bParam2 = 151.2504f;
+			*fParam2 = 151.2504f;
 			return true;
 		case 25:
 			*uParam1 = { 72.2278f, -1464.68f, 28.2915f };
-			*bParam2 = 156.8827f;
+			*fParam2 = 156.8827f;
 			return true;
 		case 27:
 			*uParam1 = { 763f, -906f, 24.2312f };
-			*bParam2 = 7.2736f;
+			*fParam2 = 7.2736f;
 			return true;
 		case 26:
 			*uParam1 = { 257.9167f, -1120.786f, 28.3684f };
-			*bParam2 = 97.2736f;
+			*fParam2 = 97.2736f;
 			return true;
 		case 28:
 			*uParam1 = { 422.5858f, -978.6332f, 69.7073f };
-			*bParam2 = 4f;
+			*fParam2 = 4f;
 			return true;
 		case 29:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 30:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 31:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 32:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 33:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 34:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 35:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 36:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 37:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 58:
 			*uParam1 = { 294.8521f, 882.9366f, 197.8527f };
-			*bParam2 = 162.693f;
+			*fParam2 = 162.693f;
 			return true;
 		case 59:
 			*uParam1 = { -1771.802f, 794.4316f, 138.4211f };
-			*bParam2 = 128.9946f;
+			*fParam2 = 128.9946f;
 			return true;
 		case 60:
 			*uParam1 = { 1495.595f, -1848.821f, 70.2075f };
-			*bParam2 = 32.2721f;
+			*fParam2 = 32.2721f;
 			return true;
 		case 38:
 			*uParam1 = { 2897.554f, 4032.241f, 50.1419f };
-			*bParam2 = 192.8091f;
+			*fParam2 = 192.8091f;
 			return true;
 		case 39:
 			*uParam1 = { 1973.355f, 3818.204f, 32.005f };
-			*bParam2 = 32f;
+			*fParam2 = 32f;
 			return true;
 		case 40:
 			*uParam1 = { 1973.355f, 3818.204f, 32.005f };
-			*bParam2 = 32f;
+			*fParam2 = 32f;
 			return true;
 		case 41:
 			*uParam1 = { 1397f, 3725.8f, 33.0673f };
-			*bParam2 = -3.7534f;
+			*fParam2 = -3.7534f;
 			return true;
 		case 42:
 			*uParam1 = { Vector(4.0205f, -2975.341f, 798.4536f) + Vector(1f, 0f, 0f) };
-			*bParam2 = 90f;
+			*fParam2 = 90f;
 			return true;
 		case 43:
 			*uParam1 = { 709.0244f, -2916.479f, 5.0589f };
-			*bParam2 = 355.326f;
+			*fParam2 = 355.326f;
 			return true;
 		case 44:
 			*uParam1 = { 643.5248f, -2917.325f, 5.1337f };
-			*bParam2 = 334.1068f;
+			*fParam2 = 334.1068f;
 			return true;
 		case 45:
 			*uParam1 = { 595.2742f, -2819.183f, 5.0559f };
-			*bParam2 = 46.8853f;
+			*fParam2 = 46.8853f;
 			return true;
 		case 46:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 47:
 			*uParam1 = { 314.4171f, 965.207f, 208.4024f };
-			*bParam2 = 165.9421f;
+			*fParam2 = 165.9421f;
 			return true;
 		case 49:
 			*uParam1 = { 3321.537f, 4975.455f, 25.9097f };
-			*bParam2 = 221.228f;
+			*fParam2 = 221.228f;
 			return true;
 		case 48:
 			*uParam1 = { -111.1318f, 6316.479f, 30.4904f };
-			*bParam2 = (42f + 180f);
+			*fParam2 = (42f + 180f);
 			return true;
 		case 50:
 			*uParam1 = { -731.3261f, 106.68f, 54.7169f };
-			*bParam2 = 98.9764f;
+			*fParam2 = 98.9764f;
 			return true;
 		case 51:
 			*uParam1 = { -1257.5f, -526.9999f, 30.2361f };
-			*bParam2 = 220.9554f;
+			*fParam2 = 220.9554f;
 			return true;
 		case 52:
 			*uParam1 = { 736.9869f, -2050.678f, 28.2718f };
-			*bParam2 = 83.9922f;
+			*fParam2 = 83.9922f;
 			return true;
 		case 66:
 			*uParam1 = { 262.5499f, -2540.15f, 4.8433f };
-			*bParam2 = -64.1366f;
+			*fParam2 = -64.1366f;
 			return true;
 		case 53:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 55:
 			*uParam1 = { -315.7789f, 6201.355f, 30.4322f };
-			*bParam2 = 127.7547f;
+			*fParam2 = 127.7547f;
 			return true;
 		case 56:
 			*uParam1 = { 118.0988f, -1264.916f, 32.3637f };
-			*bParam2 = -63f;
+			*fParam2 = -63f;
 			return true;
 		case 57:
 			*uParam1 = { 37.5988f, -1351.52f, 28.2954f };
-			*bParam2 = 90.0339f;
+			*fParam2 = 90.0339f;
 			return true;
 		case 61:
 			*uParam1 = { -558.2693f, 261.1167f, 82.07f };
-			*bParam2 = 84.6231f;
+			*fParam2 = 84.6231f;
 			return true;
 		case 62:
 			*uParam1 = { -196.9999f, 507.9999f, 132.477f };
-			*bParam2 = 99.6049f;
+			*fParam2 = 99.6049f;
 			return true;
 		case 63:
 			*uParam1 = { 1312.01f, -1645.87f, 51.2f };
-			*bParam2 = 120f;
+			*fParam2 = 120f;
 			return true;
 		case 68:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 69:
 			*uParam1 = { -818.7374f, 6.4824f, 41.2432f };
-			*bParam2 = 211.8223f;
+			*fParam2 = 211.8223f;
 			return true;
 		case 64:
 			*uParam1 = { 2091.258f, 4714.852f, 40.1936f };
-			*bParam2 = 136.0867f;
+			*fParam2 = 136.0867f;
 			return true;
 		case 54:
 			*uParam1 = { 1762.59f, 3247.212f, 40.735f };
-			*bParam2 = 27.0648f;
+			*fParam2 = 27.0648f;
 			return true;
 		case 65:
 			*uParam1 = { 1764.013f, 3252.902f, 40.735f };
-			*bParam2 = 27.0648f;
+			*fParam2 = 27.0648f;
 			return true;
 		case 70:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 71:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 72:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		case 73:
 			*uParam1 = { 0f, 0f, 0f };
-			*bParam2 = 0f;
+			*fParam2 = 0f;
 			return true;
 		default:
 			break;
@@ -6194,10 +6194,10 @@ void func_54()
 {
 	if (iLocal_294 != 0)
 	{
-		UNK_0xF7E25143642732EA(iLocal_294, 0);
+		GRAPHICS::STOP_PARTICLE_FX_LOOPED(iLocal_294, false);
 		iLocal_294 = 0;
 	}
-	UNK_0x21387C9EECC2B220(false);
-	UNK_0x10FAF14A60A0DBE1();
+	MISC::SET_GAME_PAUSED(false);
+	SCRIPT::TERMINATE_THIS_THREAD();
 }
 

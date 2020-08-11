@@ -91,7 +91,7 @@
 	var uLocal_89 = 0;
 	var uLocal_90 = 0;
 	var uLocal_91 = 0;
-	int iLocal_92 = 0;
+	bool bLocal_92 = false;
 	int iLocal_93 = 0;
 #endregion
 
@@ -121,7 +121,7 @@ void __EntryFunction__()
 	iLocal_86 = 65;
 	iLocal_87 = 49;
 	iLocal_88 = 64;
-	iLocal_92 = UNK_0xAD1355DD1E5D2D9B();
-	iLocal_93 = UNK_0x817B3657F78A517A();
+	bLocal_92 = HUD::_GET_LEVEL_BLIP_SPRITE();
+	iLocal_93 = HUD::_GET_WAYPOINT_BLIP_SPRITE();
 }
 

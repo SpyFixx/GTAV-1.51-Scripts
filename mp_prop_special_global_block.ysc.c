@@ -30,7 +30,7 @@ void __EntryFunction__()
 	Global_3934111 = 1;
 	Global_3934112 = 1;
 	Global_4010525 = -1;
-	UNK_0xB57F88F0123F4C38();
+	MISC::NETWORK_SET_SCRIPT_IS_SAFE_FOR_NETWORK_GAME();
 	func_16();
 	iVar0 = 0;
 	while (iVar0 < 37)
@@ -140,7 +140,7 @@ void func_3(int iParam0, int iParam1, var uParam2, bool bParam3)
 	vVar13 = { *uParam2 - Var0[0 /*6*/] };
 	vVar13 = { func_4(vVar13, -Var0[0 /*6*/].f_3.f_2) };
 	vVar13 = { func_4(vVar13, Var0[1 /*6*/].f_3.f_2) };
-	*uParam2 = { UNK_0x8A5E176FF719A014(Var0[1 /*6*/], 0f, vVar13) };
+	*uParam2 = { OBJECT::_GET_OBJECT_OFFSET_FROM_COORDS(Var0[1 /*6*/], 0f, vVar13) };
 	switch (iParam1)
 	{
 		case 6:
@@ -487,15 +487,15 @@ Vector3 func_4(vector3 vParam0, float fParam3)
 struct<6> func_5(int iParam0, int iParam1)
 {
 	struct<6> Var0;
-	var uVar6;
-	int iVar23;
+	bool bVar6;
+	bool bVar23;
 
-	iVar23 = 0;
-	if (func_6(iParam1, &uVar6))
+	bVar23 = false;
+	if (func_6(iParam1, &bVar6))
 	{
-		iVar23 = 1;
+		bVar23 = true;
 	}
-	if (iVar23 && UNK_0x7BDFCCD11DDD74D6(&Var0, &(Var0.f_3), iParam0, uVar6))
+	if (bVar23 && MISC::_GET_BASE_ELEMENT_METADATA(&Var0, &(Var0.f_3), iParam0, bVar6))
 	{
 		return Var0;
 	}
@@ -1273,7 +1273,7 @@ void func_10(int iParam0, int iParam1, var uParam2, int iParam3, bool bParam4)
 	vVar13 = { *uParam2 - Var0[0 /*6*/] };
 	vVar13 = { func_4(vVar13, -Var0[0 /*6*/].f_3.f_2) };
 	vVar13 = { func_4(vVar13, Var0[1 /*6*/].f_3.f_2) };
-	*uParam2 = { UNK_0x8A5E176FF719A014(Var0[1 /*6*/], 0f, vVar13) };
+	*uParam2 = { OBJECT::_GET_OBJECT_OFFSET_FROM_COORDS(Var0[1 /*6*/], 0f, vVar13) };
 	switch (iParam1)
 	{
 		case 6:
@@ -2553,7 +2553,7 @@ void func_14(struct<4> Param0, var uParam4, var uParam5, struct<6> Param6, struc
 	vVar0 = { *uParam18 - Param0 };
 	vVar0 = { func_4(vVar0, -Param0.f_3.f_2) };
 	vVar0 = { func_4(vVar0, Param12.f_3.f_2) };
-	*uParam18 = { UNK_0x8A5E176FF719A014(Param12, 0f, vVar0) };
+	*uParam18 = { OBJECT::_GET_OBJECT_OFFSET_FROM_COORDS(Param12, 0f, vVar0) };
 	if (!func_15(Param12.f_3, Param0.f_3, 0))
 	{
 		while (Param0.f_3.f_2 > 180f)
